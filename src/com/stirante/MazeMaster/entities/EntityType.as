@@ -6,12 +6,14 @@ package com.stirante.MazeMaster.entities
 	 */
 	public class EntityType 
 	{
-		public static const PLAYER:String = "player"
-		public static const ENEMY:String = "enemy"
+		public static const PLAYER:EntityType = new EntityType("player");
+		public static const ENEMY:EntityType = new EntityType("enemy");
 		
-		public function EntityType() 
+		private var type:String;
+		
+		public function EntityType(type:String) 
 		{
-			
+			this.type = type;
 		}
 		
 	}
