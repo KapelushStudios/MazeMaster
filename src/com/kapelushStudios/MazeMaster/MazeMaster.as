@@ -1,11 +1,11 @@
-package com.stirante.MazeMaster
+package com.kapelushStudios.MazeMaster
 {
-	import com.stirante.MazeMaster.blocks.BlockList;
-	import com.stirante.MazeMaster.entities.Enemy;
-	import com.stirante.MazeMaster.entities.Player;
-	import com.stirante.MazeMaster.map.Map;
-	import com.stirante.MazeMaster.map.MazeGen;
-	import com.stirante.MazeMaster.thread.Thread;
+	import com.kapelushStudios.MazeMaster.blocks.BlockList;
+	import com.kapelushStudios.MazeMaster.entities.Enemy;
+	import com.kapelushStudios.MazeMaster.entities.Player;
+	import com.kapelushStudios.MazeMaster.map.Map;
+	import com.kapelushStudios.MazeMaster.map.MazeGen;
+	import com.kapelushStudios.MazeMaster.thread.Thread;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;

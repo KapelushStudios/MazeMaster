@@ -1,6 +1,6 @@
-package com.stirante.MazeMaster.entities
+package com.kapelushStudios.MazeMaster.entities
 {
-	import com.stirante.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.errors.IllegalOperationError;

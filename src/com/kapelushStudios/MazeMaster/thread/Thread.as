@@ -1,4 +1,4 @@
-package com.stirante.MazeMaster.thread 
+package com.kapelushStudios.MazeMaster.thread 
 {
 	import flash.events.Event;
 	/**

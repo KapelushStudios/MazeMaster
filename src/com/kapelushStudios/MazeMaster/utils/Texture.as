@@ -1,4 +1,4 @@
-package com.stirante.MazeMaster.utils
+package com.kapelushStudios.MazeMaster.utils
 {
 	import flash.display.*;
 	import flash.events.Event;

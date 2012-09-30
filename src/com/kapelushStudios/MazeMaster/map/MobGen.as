@@ -1,4 +1,4 @@
-package com.stirante.MazeMaster.map 
+package com.kapelushStudios.MazeMaster.map 
 {
 	/**
 	 * ...

@@ -1,9 +1,9 @@
-package com.stirante.MazeMaster.entities
+package com.kapelushStudios.MazeMaster.entities
 {
-	import com.stirante.MazeMaster.map.Map;
-	import com.stirante.MazeMaster.MazeMaster;
-	import com.stirante.MazeMaster.utils.Control;
-	import com.stirante.MazeMaster.utils.Texture;
+	import com.kapelushStudios.MazeMaster.map.Map;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.utils.Control;
+	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.geom.*;
 	import flash.system.*;
 	/**

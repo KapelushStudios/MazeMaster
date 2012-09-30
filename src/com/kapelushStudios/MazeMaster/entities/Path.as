@@ -1,4 +1,4 @@
-package com.stirante.MazeMaster.entities
+package com.kapelushStudios.MazeMaster.entities
 {
 	import flash.geom.Point;
 	

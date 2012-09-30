@@ -1,7 +1,7 @@
-package com.stirante.MazeMaster.entities 
+package com.kapelushStudios.MazeMaster.entities 
 {
-	import com.stirante.MazeMaster.MazeMaster;
-	import com.stirante.MazeMaster.utils.Texture;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.utils.Texture;
 	/**
 	 * ...
 	 * @author Piotr Brzozowski

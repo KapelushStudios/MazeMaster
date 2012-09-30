@@ -1,7 +1,7 @@
-package com.stirante.MazeMaster.blocks
+package com.kapelushStudios.MazeMaster.blocks
 {
-	import com.stirante.MazeMaster.entities.Entity;
-	import com.stirante.MazeMaster.utils.Texture;
+	import com.kapelushStudios.MazeMaster.entities.Entity;
+	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;

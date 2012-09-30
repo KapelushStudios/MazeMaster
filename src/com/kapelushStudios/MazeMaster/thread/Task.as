@@ -1,6 +1,6 @@
-package com.stirante.MazeMaster.thread 
+package com.kapelushStudios.MazeMaster.thread 
 {
-	import com.stirante.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
