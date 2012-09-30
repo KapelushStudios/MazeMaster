@@ -12,7 +12,7 @@ package com.kapelushStudios.MazeMaster.entities
 	{
 		public static var ids:int = 0;
 		private var texture:Bitmap;
-		private var type:String;
+		private var type:EntityType;
 		private var _name:String;
 		public var id:int;
 		private var posX:int;
@@ -20,7 +20,7 @@ package com.kapelushStudios.MazeMaster.entities
 		private var health:int;
 		private var speed:Number;
 		
-		public function Entity(self:Entity ,texture:Bitmap, type:String, name:String, posX:int, posY:int) 
+		public function Entity(self:Entity ,texture:Bitmap, type:EntityType, name:String, posX:int, posY:int) 
 		{
 			if (self != this) 
 			{
@@ -33,10 +33,10 @@ package com.kapelushStudios.MazeMaster.entities
 			this.texture = texture;
 			addChild(this.texture);
 		}
-		public function getType():String 
+		public function getType():EntityType 
 		{
 			throw IllegalOperationError("Method getType must be overriden");
-			return "";
+			return null;
 		}
 		public function getName():String 
 		{

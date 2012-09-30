@@ -44,7 +44,7 @@ package com.kapelushStudios.MazeMaster.entities
 		{
 			return 20;
 		}
-		override public function getType():String 
+		override public function getType():EntityType 
 		{
 			return EntityType.PLAYER;
 		}

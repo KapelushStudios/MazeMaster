@@ -11,7 +11,6 @@ package com.kapelushStudios.MazeMaster.map
 			var result:Array = new Array()
 			var visited:Array = new Array()
 			var queue:Array =  new Array()
-			var result:Array = new Array()
 			var coorX:int
 			var coorY:int
 			var repeats:int = 1
@@ -173,7 +172,7 @@ package com.kapelushStudios.MazeMaster.map
 			return result
 		}
 		
-		private function searchArray(coordinates:Array, myArray:Array):Boolean 
+		private static function searchArray(coordinates:Array, myArray:Array):Boolean 
 		{
 			var Xcor:int = coordinates[ 0 ]
 			var Ycor:int = coordinates[ 1 ]

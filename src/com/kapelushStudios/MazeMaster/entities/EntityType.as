@@ -10,6 +10,7 @@ package com.kapelushStudios.MazeMaster.entities
 		public static const ENEMY:EntityType = new EntityType("enemy");
 		
 		private static var _enumCreated:Boolean = false;
+		
 		{
 			_enumCreated = true;
 		}

@@ -15,7 +15,7 @@ package com.kapelushStudios.MazeMaster.entities
 		public function Enemy() 
 		{
 			super(this, Texture.getBlock(2, 2), "Enemy");
-			searchID = MazeMaster.getThread().sheduleRepeatingTask(searchPlayer, 50);
+			//searchID = MazeMaster.getThread().sheduleRepeatingTask(searchPlayer, 50);
 		}
 		
 		public function searchPlayer():void 

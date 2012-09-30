@@ -34,15 +34,15 @@ package com.kapelushStudios.MazeMaster
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, thread.run);
-			map = new Map(MazeGen.generateMaze(11, 11));
+			map = new Map(MazeGen.generateMaze(41, 41));
 			player = new Player();
 			player.x = 16;
 			player.y = 16;
-			var enemy:Enemy = new Enemy();
-			enemy.x = 192;
-			enemy.y = 16;
+			//var enemy:Enemy = new Enemy();
+			//enemy.x = 192;
+			//enemy.y = 16;
 			map.spawnEntity(player);
-			map.spawnEntity(enemy);
+			//map.spawnEntity(enemy);
 			addChild(map);
 		}
 		
