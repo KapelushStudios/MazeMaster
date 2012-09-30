@@ -8,5 +8,5 @@ system/helper
 download/
 config.php
 admin/config.php
-bin
-obj
+bin/
+obj/
