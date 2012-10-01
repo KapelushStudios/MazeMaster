@@ -112,6 +112,16 @@ package com.kapelushStudios.MazeMaster.entities
 		{
 			return new Entity(this, texture, type, name, posX, posY);
 		}
+		public function getTexture():Bitmap
+		{
+			return texture;
+		}
+		public function setTexture(tex:Bitmap):void
+		{
+			removeChild(texture);
+			texture = tex;
+			addChild(texture);
+		}
 	}
 
 }

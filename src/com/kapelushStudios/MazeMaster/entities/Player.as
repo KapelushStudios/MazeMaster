@@ -4,6 +4,7 @@ package com.kapelushStudios.MazeMaster.entities
 	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import com.kapelushStudios.MazeMaster.utils.Control;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
+	import flash.display.Bitmap;
 	import flash.geom.*;
 	import flash.system.*;
 	/**
@@ -24,11 +25,16 @@ package com.kapelushStudios.MazeMaster.entities
 		private var rightcorner:Point;
 		private var rightcorner1:Point;
 		private var world:Map;
+		private var moveID:int;
+		private var state1:Bitmap;
+		private var state2:Bitmap;
+		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
+		private var actualTex:int = 0;
 		
 		public function Player() 
 		{
 			super(this, Texture.getBlock(9, 10), EntityType.PLAYER, "Player", 1, 1);
-			control = new Control(action);
+			control = new Control(action, idle);
 			addChild(control);
 			upcorner = new Point();
 			upcorner1 = new Point();
@@ -39,6 +45,34 @@ package com.kapelushStudios.MazeMaster.entities
 			rightcorner = new Point();
 			rightcorner1 = new Point();
 			world = MazeMaster.getMap();
+			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 12);
+			MazeMaster.getThread().getTask(moveID).setPaused(true);
+			state1 = Texture.getBlock(0, 0);
+			state2 = Texture.getBlock(1, 0);
+		}
+		
+		public function idle():void 
+		{
+			MazeMaster.getThread().getTask(moveID).setPaused(true);
+			setTexture(Texture.getBlock(9, 10));
+			actualTex = 0;
+		}
+		
+		public function walkState():void 
+		{
+			trace(actualTex);
+			if (actualTex == 0) {
+				setTexture(state1);
+				actualTex = 1;
+			}
+			else if (actualTex == 1) {
+				setTexture(state2);
+				actualTex = 2;
+			}
+			else if (actualTex == 2) {
+				setTexture(state1);
+				actualTex = 1;
+			}
 		}
 		override public function getMaxHealth():int 
 		{
@@ -54,6 +88,9 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		public function action(dir:String):void
 		{
+			if (MazeMaster.getThread().getTask(moveID).isPaused()) {
+				MazeMaster.getThread().getTask(moveID).setPaused(false);
+			}
 			if (dir == "up") {
 				this.y -= getSpeed();
 				upcorner.x = this.x - width / 2;

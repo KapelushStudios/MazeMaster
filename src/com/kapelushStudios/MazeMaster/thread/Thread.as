@@ -19,7 +19,7 @@ package com.kapelushStudios.MazeMaster.thread
 		{
 			for (var i:int = 0; i < tasks.length; i++) 
 			{
-				if (tasks[i] != null)
+				if (tasks[i] != null && !tasks[i].isPaused())
 				{
 					tasks[i].run();
 				}
@@ -57,6 +57,10 @@ package com.kapelushStudios.MazeMaster.thread
 		public function cancelTask(taskId:int):void
 		{
 			tasks[taskId] = null;
+		}
+		public function getTask(id:int):Task
+		{
+			return tasks[id];
 		}
 	}
 

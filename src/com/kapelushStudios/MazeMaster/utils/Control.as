@@ -16,13 +16,15 @@ package com.kapelushStudios.MazeMaster.utils
 		private var right:Boolean;
 		private var left:Boolean
 		private var space:Boolean;;
+		private var idleCallback:Function;
 		
 		/**
 		 *
 		 * @param	callback zwraca naciśnięty klawisz.Jest wykonywany onEnterFrame
 		 */
-		public function Control(callback:Function)
+		public function Control(callback:Function, idleCallback:Function)
 		{
+			this.idleCallback = idleCallback;
 			this.callback = callback;
 			if (stage){
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
@@ -87,6 +89,9 @@ package com.kapelushStudios.MazeMaster.utils
 			if (e.keyCode == Keyboard.SPACE)
 			{
 				space = false;
+			}
+			if (!up && !down && !left && !right) {
+				idleCallback();
 			}
 		}
 		

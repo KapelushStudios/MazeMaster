@@ -13,6 +13,7 @@ package com.kapelushStudios.MazeMaster.thread
 		private var ticks:int = 0;
 		private var repeated:int = 0;
 		private var repeat:int;
+		private var paused:Boolean;
 		
 		public function Task(method:Function, interval:int, repeat:int, id:int) 
 		{
@@ -47,6 +48,15 @@ package com.kapelushStudios.MazeMaster.thread
 		public function getId():int
 		{
 			return id;
+		}
+		
+		public function isPaused():Boolean
+		{
+			return paused;
+		}
+		public function setPaused(state:Boolean):void
+		{
+			paused = state;
 		}
 		
 	}
