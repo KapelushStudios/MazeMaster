@@ -20,7 +20,7 @@ package com.kapelushStudios.MazeMaster
 		private static var thread:Thread;
 		private static var instance:MazeMaster;
 		private static var map:Map;
-		private static var player:Player;//192, 32
+		private static var player:Player;
 		public function MazeMaster():void 
 		{
 			if (stage) init();
@@ -33,23 +33,19 @@ package com.kapelushStudios.MazeMaster
 			BlockList.init();
 			instance = this;
 			thread = new Thread();
-			addEventListener(Event.ENTER_FRAME, thread.run);
+			addEventListener(Event.ENTER_FRAME, enterFrame);
 			map = new Map(MazeGen.generateMaze(41, 41));
 			player = new Player();
 			player.x = 16;
-			player.y = 16;
-			//var enemy:Enemy = new Enemy();
-			//enemy.x = 192;
-			//enemy.y = 16;
+			player.y = 8;
 			map.spawnEntity(player);
-			//map.spawnEntity(enemy);
 			addChild(map);
 		}
 		
-		//private function enterFrame(e:Event):void 
-		//{
-			//thread.run(e);
-		//}
+		private function enterFrame(e:Event):void 
+		{
+			thread.run(e);
+		}
 		
 		public static function getThread():Thread
 		{

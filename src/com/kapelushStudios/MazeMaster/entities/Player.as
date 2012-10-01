@@ -33,7 +33,9 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function Player() 
 		{
-			super(this, Texture.getBlock(9, 10), EntityType.PLAYER, "Player", 1, 1);
+			state1 = Texture.getPlayer(1);
+			state2 = Texture.getPlayer(2);
+			super(this, state1, EntityType.PLAYER, "Player", 1, 1);
 			control = new Control(action, idle);
 			addChild(control);
 			upcorner = new Point();
@@ -45,16 +47,14 @@ package com.kapelushStudios.MazeMaster.entities
 			rightcorner = new Point();
 			rightcorner1 = new Point();
 			world = MazeMaster.getMap();
-			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 12);
+			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 9);
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
-			state1 = Texture.getBlock(0, 0);
-			state2 = Texture.getBlock(1, 0);
 		}
 		
 		public function idle():void 
 		{
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
-			setTexture(Texture.getBlock(9, 10));
+			setTexture(state1);
 			actualTex = 0;
 		}
 		
@@ -62,16 +62,12 @@ package com.kapelushStudios.MazeMaster.entities
 		{
 			trace(actualTex);
 			if (actualTex == 0) {
-				setTexture(state1);
+				setTexture(state2);
 				actualTex = 1;
 			}
 			else if (actualTex == 1) {
-				setTexture(state2);
-				actualTex = 2;
-			}
-			else if (actualTex == 2) {
 				setTexture(state1);
-				actualTex = 1;
+				actualTex = 0;
 			}
 		}
 		override public function getMaxHealth():int 
@@ -93,9 +89,9 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "up") {
 				this.y -= getSpeed();
-				upcorner.x = this.x - width / 2;
-				upcorner.y = this.y - height / 2;
-				upcorner1.x = this.x + width / 2 - 1;
+				upcorner.x = this.x - 8;
+				upcorner.y = this.y;
+				upcorner1.x = this.x + 7;
 				upcorner1.y = upcorner.y;
 				if (world.collideWith(upcorner) || world.collideWith(upcorner1)) {
 					this.y += getSpeed();
@@ -104,9 +100,9 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "down") {
 				this.y += getSpeed();
-				downcorner.x = this.x - width / 2;
-				downcorner.y = height / 2 + this.y - 1;
-				downcorner1.x = this.x + width / 2 - 1;
+				downcorner.x = this.x - 8;
+				downcorner.y = this.y + 16;
+				downcorner1.x = this.x + 7;
 				downcorner1.y = downcorner.y;
 				if (world.collideWith(downcorner) || world.collideWith(downcorner1)) {
 					this.y -= getSpeed();
@@ -115,10 +111,10 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "left") {
 				this.x -= getSpeed();
-				leftcorner.x = this.x - width / 2;
-				leftcorner.y = this.y - height / 2;
+				leftcorner.x = this.x - 8;
+				leftcorner.y = this.y + 15;
 				leftcorner1.x = leftcorner.x;
-				leftcorner1.y = this.y + height / 2 - 1;
+				leftcorner1.y = this.y + 1;
 				if (world.collideWith(leftcorner) || world.collideWith(leftcorner1)) {
 					this.x += getSpeed();
 					world.getBlockAt(leftcorner).onEntityWalked(this);
@@ -126,10 +122,10 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "right") {
 				this.x += getSpeed();
-				rightcorner.x = width / 2 + this.x - 1;
-				rightcorner.y = height / 2 + this.y - 1;
+				rightcorner.x = 7 + this.x;
+				rightcorner.y = this.y + 1;
 				rightcorner1.x = rightcorner.x;
-				rightcorner1.y = this.y - height / 2;
+				rightcorner1.y = this.y + 15;
 				if (world.collideWith(rightcorner) || world.collideWith(rightcorner1)) {
 					this.x -= getSpeed();
 					world.getBlockAt(rightcorner).onEntityWalked(this);
