@@ -1,5 +1,7 @@
 package com.kapelushStudios.MazeMaster.entities
 {
+	import com.kapelushStudios.MazeMaster.item.Inventory;
+	import com.kapelushStudios.MazeMaster.item.Item;
 	import com.kapelushStudios.MazeMaster.map.Map;
 	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import com.kapelushStudios.MazeMaster.utils.Control;
@@ -15,7 +17,7 @@ package com.kapelushStudios.MazeMaster.entities
 	{
 		private var control:Control;
 		private var mana:Number;
-		//private var inventory:Vector.<Item>;
+		private var inventory:Inventory;
 		private var upcorner:Point;
 		private var upcorner1:Point;
 		private var downcorner:Point;
@@ -49,6 +51,12 @@ package com.kapelushStudios.MazeMaster.entities
 			world = MazeMaster.getMap();
 			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 9);
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
+			inventory = new Inventory();
+		}
+		
+		public function getInventory():Inventory
+		{
+			return inventory;
 		}
 		
 		public function idle():void 

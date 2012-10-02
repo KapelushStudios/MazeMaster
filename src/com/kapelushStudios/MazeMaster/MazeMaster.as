@@ -3,6 +3,7 @@ package com.kapelushStudios.MazeMaster
 	import com.kapelushStudios.MazeMaster.blocks.BlockList;
 	import com.kapelushStudios.MazeMaster.entities.Enemy;
 	import com.kapelushStudios.MazeMaster.entities.Player;
+	import com.kapelushStudios.MazeMaster.item.Items;
 	import com.kapelushStudios.MazeMaster.map.Map;
 	import com.kapelushStudios.MazeMaster.map.MazeGen;
 	import com.kapelushStudios.MazeMaster.thread.Thread;
@@ -31,6 +32,7 @@ package com.kapelushStudios.MazeMaster
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			BlockList.init();
+			Items.init();
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, enterFrame);
