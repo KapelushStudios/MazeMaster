@@ -14,7 +14,7 @@ package com.kapelushStudios.MazeMaster.blocks
 		public static function init():void
 		{
 			blockList = new Vector.<Block>();
-			blockList.push(new BlockSlab(), new BlockBrick());
+			blockList.push(new BlockSlab(), new BlockBrick(), new BlockSlabB());
 		}
 		/**
 		 * Zwraca blok o podanym ID

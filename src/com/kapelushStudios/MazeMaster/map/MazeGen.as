@@ -169,9 +169,7 @@ package com.kapelushStudios.MazeMaster.map
 				}				
 			}
 			
-			trace (enlargeArray(4, sizeX, sizeY, result)[1])
-			
-			return enlargeArray(4, sizeX, sizeY, result)
+			return blockFilter(21 * 4, 21 * 4, 0, 2, 10, enlargeArray(4, sizeX, sizeY, result))
 		}
 		
 		private static function searchArray(coordinates:Array, myArray:Array):Boolean 
@@ -209,9 +207,26 @@ package com.kapelushStudios.MazeMaster.map
 				}
 			}
 			
-			trace (enResult[1])
-			
 			return enResult
+		}
+		
+		private static function blockFilter(filterX:int, filterY:int, blockID:int, filterID:int, filterChance:int, filterArray:Array):Array
+		{
+			for (var i:int = 0; i < filterY; i++) 
+			{
+				for (var j:int = 0; j < filterX; j++) 
+				{
+					if (filterArray[ j ][ i ] == blockID)
+					{
+						if (Math.round(Math.random() * 10000) % 100 < filterChance)
+						{
+							filterArray[ j ][ i ] = filterID
+						}
+					}
+				}
+			}
+			
+			return filterArray
 		}
 	}
 
