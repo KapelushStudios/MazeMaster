@@ -11,13 +11,13 @@ package com.kapelushStudios.MazeMaster.utils
 	 */
 	public class Texture 
 	{
-		[Embed(source="../../../../resources/textures.png")]
+		[Embed(source="../../../../resources/blocks/textures.png")]
 		public static var textury:Class;
 		
-		[Embed(source = "../../../../resources/Player.png")]
+		[Embed(source = "../../../../resources/entities/Player.png")]
 		public static var player1:Class;
 		
-		[Embed(source = "../../../../resources/Player2.png")]
+		[Embed(source = "../../../../resources/entities/Player2.png")]
 		public static var player2:Class;
 		
 		public static function getBlock(x:int, y:int):Bitmap {
