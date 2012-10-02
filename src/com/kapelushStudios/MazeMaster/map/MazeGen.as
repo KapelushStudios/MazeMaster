@@ -169,7 +169,9 @@ package com.kapelushStudios.MazeMaster.map
 				}				
 			}
 			
-			return result
+			trace (enlargeArray(4, sizeX, sizeY, result)[1])
+			
+			return enlargeArray(4, sizeX, sizeY, result)
 		}
 		
 		private static function searchArray(coordinates:Array, myArray:Array):Boolean 
@@ -182,6 +184,34 @@ package com.kapelushStudios.MazeMaster.map
 			}
 			
 			return true
+		}
+		
+		private static function enlargeArray(enSize:int, enSizeX:int, enSizeY:int, enArray:Array):Array
+		{
+			var enResult:Array = new Array();
+			
+			for (var m:int = 0; m < (enSizeX * enSize); m++) 
+			{
+				enResult[ m ] = new Array() 
+			}
+			
+			for (var i:int = 0; i < enSizeY; i++) 
+			{
+				for (var j:int = 0; j < enSize; j++) 
+				{
+					for (var k:int = 0; k < enSizeX; k++) 
+					{
+						for (var l:int = 0; l < enSize; l++) 
+						{
+							enResult[ (k * enSize) + l ][ (i * enSize) + j ] = enArray[ k ][ i ]
+						}
+					}
+				}
+			}
+			
+			trace (enResult[1])
+			
+			return enResult
 		}
 	}
 

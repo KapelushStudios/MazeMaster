@@ -36,10 +36,10 @@ package com.kapelushStudios.MazeMaster
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			map = new Map(MazeGen.generateMaze(41, 41));
+			map = new Map(MazeGen.generateMaze(21, 21));
 			player = new Player();
-			player.x = 16;
-			player.y = 8;
+			player.x = 16 * 4;
+			player.y = 8 * 7;
 			map.spawnEntity(player);
 			addChild(map);
 		}
