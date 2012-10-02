@@ -30,6 +30,7 @@ package com.kapelushStudios.MazeMaster.item
 					return item.clone();
 				}
 			}
+			return null;
 		}
 	}
 

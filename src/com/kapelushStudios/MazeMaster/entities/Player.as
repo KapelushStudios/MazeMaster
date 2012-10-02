@@ -32,6 +32,7 @@ package com.kapelushStudios.MazeMaster.entities
 		private var state2:Bitmap;
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
+		private var moveCallback:Function;
 		
 		public function Player() 
 		{
@@ -49,7 +50,7 @@ package com.kapelushStudios.MazeMaster.entities
 			rightcorner = new Point();
 			rightcorner1 = new Point();
 			world = MazeMaster.getMap();
-			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 9);
+			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 7);
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
 			inventory = new Inventory();
 		}
@@ -68,7 +69,6 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function walkState():void 
 		{
-			trace(actualTex);
 			if (actualTex == 0) {
 				setTexture(state2);
 				actualTex = 1;
@@ -139,6 +139,9 @@ package com.kapelushStudios.MazeMaster.entities
 					world.getBlockAt(rightcorner).onEntityWalked(this);
 				}
 			}
+			if (moveCallback != null) {
+				moveCallback(this);
+			}
 		}
 		public function getMaxMana():int
 		{
@@ -151,6 +154,10 @@ package com.kapelushStudios.MazeMaster.entities
 		override public function getSpeed():Number 
 		{
 			return 1;
+		}
+		public function setMoveCallback(method:Function):void
+		{
+			moveCallback = method;
 		}
 	}
 
