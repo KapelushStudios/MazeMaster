@@ -3,6 +3,7 @@ package com.kapelushStudios.MazeMaster.map
 	import com.kapelushStudios.MazeMaster.blocks.Block;
 	import com.kapelushStudios.MazeMaster.blocks.BlockList;
 	import com.kapelushStudios.MazeMaster.entities.Entity;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import flash.display.Sprite;
 	/**
 	 * Klasa zawierająca wszystkie informacje o mapie
@@ -16,6 +17,8 @@ package com.kapelushStudios.MazeMaster.map
 		private var tempX:int;
 		private var tempY:int;
 		private var blocks:Array;
+		private var renderDistance:int
+		private var ifFirst:Boolean
 		/**
 		 * Klasa zawierająca wszystkie informacje o mapie
 		 * @param	map Dwu-wymiarowa tablica zawierająca ułożenie wszystkich bloków
@@ -25,13 +28,62 @@ package com.kapelushStudios.MazeMaster.map
 			this.map = map;
 			entities = new Array();
 			blocks = new Array();
+			renderDistance = 1
+			ifFirst = false
 			renderMap();
+			ifFirst = true
 		}
 		
 		/**
 		 * Renderuje mapę do obiektu Sprite
 		 */
 		public function renderMap():void
+		{
+			if (map1 != null)
+			{
+				clear();
+			}
+			else
+			{
+				map1 = new Sprite();
+			}
+			
+			if (ifFirst)
+			{
+			
+			for (var i:int = 0; i < renderDistance; i++)
+			{
+				blocks[i] = new Array();
+				for (var j:int = 0; j < renderDistance; j++)
+				{
+					blocks[i][j] = BlockList.getBlockToTest(map[i + Math.round(MazeMaster.getPlayer().x / 16)][j + Math.round(MazeMaster.getPlayer().y / 16)]).getTexture();
+					blocks[i][j].y = 16 * (i);
+					blocks[i][j].x = 16 * (j);
+					map1.addChild(blocks[i + renderDistance][j + renderDistance]);
+				}
+			}
+			
+			} else
+			{
+			
+			for (var k:int = 0; i < renderDistance; i++)
+			{
+				blocks[i] = new Array();
+				for (var l:int = 0; j < renderDistance; j++)
+				{
+					blocks[i][j] = BlockList.getBlockToTest(map[i + Math.round((16 * 4) / 16)][j + Math.round(( 8 * 7) / 16)]).getTexture();
+					blocks[i][j].y = 16 * (i);
+					blocks[i][j].x = 16 * (j);
+					map1.addChild(blocks[i + renderDistance][j + renderDistance]);
+				}
+			}
+			
+			}
+			
+			addChild(map1);		
+		}
+		 
+		public function brenderMap():void
 		{
 			if (map1 != null)
 			{
