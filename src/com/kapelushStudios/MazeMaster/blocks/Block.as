@@ -20,7 +20,7 @@ package com.kapelushStudios.MazeMaster.blocks
 		private var posY:int;
 		private var _walkable:Boolean;
 		private var _name:String;
-		private var texture:DisplayObject;
+		private var texture:Bitmap;
 		/**
 		 * Abstrakcyjna klasa bloku
 		 * @param	id ID bloku
@@ -100,6 +100,10 @@ package com.kapelushStudios.MazeMaster.blocks
 		public function getId():int 
 		{
 			return id;
+		}
+		public function getTexture():Bitmap
+		{
+			return new Bitmap(texture.bitmapData);
 		}
 	}
 

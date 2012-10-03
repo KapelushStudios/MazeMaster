@@ -46,7 +46,7 @@ package com.kapelushStudios.MazeMaster.map
 				blocks[i] = new Array();
 				for (var j:int = 0; j < map[0].length; j++)
 				{
-					blocks[i][j] = BlockList.getBlockById(map[i][j]);
+					blocks[i][j] = BlockList.getBlockToTest(map[i][j]).getTexture();
 					blocks[i][j].y = 16 * i;
 					blocks[i][j].x = 16 * j;
 					map1.addChild(blocks[i][j]);
@@ -115,7 +115,7 @@ package com.kapelushStudios.MazeMaster.map
 		{
 			tempX = Math.round(corner.x / 16);
 			tempY = Math.round(corner.y / 16);
-			return blocks[tempY][tempX];
+			return BlockList.getBlockToTest(map[tempY][tempX]);
 		}
 		/**
 		 * Zwraca Sprite z mapą
