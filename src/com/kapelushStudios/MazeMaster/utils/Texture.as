@@ -17,6 +17,9 @@ package com.kapelushStudios.MazeMaster.utils
 		[Embed(source = "../../../../resources/entities/Player.png")]
 		public static var player1:Class;
 		
+		[Embed(source = "../../../../resources/entities/Player1.png")]
+		public static var player3:Class;
+		
 		[Embed(source = "../../../../resources/entities/Player2.png")]
 		public static var player2:Class;
 		
@@ -32,9 +35,13 @@ package com.kapelushStudios.MazeMaster.utils
 			if (state == 1){
 				textura = new player1() as Bitmap;
 			}
-			else {
+			else if (state == 2){
 				textura = new player2() as Bitmap;
 			}
+			else {
+				textura = new player3() as Bitmap;
+			}
+			
 			for (var i:int = 0; i < Math.round(textura.width); i++) 
 			{
 				for (var j:int = 0; j < Math.round(textura.height); j++) 

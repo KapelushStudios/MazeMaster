@@ -30,6 +30,7 @@ package com.kapelushStudios.MazeMaster.entities
 		private var moveID:int;
 		private var state1:Bitmap;
 		private var state2:Bitmap;
+		private var state3:Bitmap;
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
@@ -38,7 +39,8 @@ package com.kapelushStudios.MazeMaster.entities
 		{
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
-			super(this, state1, EntityType.PLAYER, "Player", 1, 1);
+			state3 = Texture.getPlayer(3);
+			super(this, state3, EntityType.PLAYER, "Player", 1, 1);
 			control = new Control(action, idle);
 			addChild(control);
 			upcorner = new Point();
@@ -63,7 +65,7 @@ package com.kapelushStudios.MazeMaster.entities
 		public function idle():void 
 		{
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
-			setTexture(state1);
+			setTexture(state3);
 			actualTex = 0;
 		}
 		
@@ -74,7 +76,15 @@ package com.kapelushStudios.MazeMaster.entities
 				actualTex = 1;
 			}
 			else if (actualTex == 1) {
+				setTexture(state3);
+				actualTex = 2;
+			}
+			else if (actualTex == 2) {
 				setTexture(state1);
+				actualTex = 3;
+			}
+			else if (actualTex == 3) {
+				setTexture(state3);
 				actualTex = 0;
 			}
 		}
@@ -153,7 +163,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		override public function getSpeed():Number 
 		{
-			return 1;
+			return 0.8;
 		}
 		public function setMoveCallback(method:Function):void
 		{
