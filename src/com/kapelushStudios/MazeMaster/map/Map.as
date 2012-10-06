@@ -71,19 +71,19 @@ package com.kapelushStudios.MazeMaster.map
 			var actual:Array = new Array(0, 0);
 			for (var i:int = 0; i < map.length; i++) 
 			{
-				if (i % (int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16)  == 0 && i != 0) {
-					actual[0]++;
-				}
 				for (var j:int = 0; j < map[0].length; j++) 
 				{
-					if (j % (int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) == 0 && j != 0) {
-						actual[1]++;
-					}
 					dest.x = (j - ((int)(j/255))*255) * 16;
 					dest.y = (i - ((int)(j/255))*255) * 16;
 					maps[actual[0]][actual[1]].bitmapData.copyPixels(BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData, BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData.rect, dest);
+					if (j % ((int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) - 1) == 0 && j != 0) {
+						actual[1]++;
+					}
 				}
 				actual[1] = 0;
+				if (i % ((int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) - 1)  == 0 && i != 0) {
+					actual[0]++;
+				}
 			}
 			addChild(map1);
 		}
