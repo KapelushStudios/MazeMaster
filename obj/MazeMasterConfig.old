@@ -8,26 +8,24 @@
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
-      <value>false</value>
-    </define>
-    <define append="true">
-      <name>CONFIG::release</name>
       <value>true</value>
     </define>
     <define append="true">
-      <name>CONFIG::timeStamp</name>
-      <value>'2012-10-03'</value>
+      <name>CONFIG::release</name>
+      <value>false</value>
     </define>
-    <optimize>true</optimize>
-    <omit-trace-statements>true</omit-trace-statements>
-    <verbose-stacktraces>false</verbose-stacktraces>
+    <define append="true">
+      <name>CONFIG::timeStamp</name>
+      <value>'2012-10-06'</value>
+    </define>
+    <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Mati\Desktop\MazeMaster-repo\MazeMaster\src</path-element>
+      <path-element>C:\Users\Mati\Desktop\MazeMaster - repo\MazeMaster\src</path-element>
       <path-element>D:\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Mati\Desktop\MazeMaster-repo\MazeMaster\src\com\kapelushStudios\MazeMaster\MainView.as</path-element>
+    <path-element>C:\Users\Mati\Desktop\MazeMaster - repo\MazeMaster\src\com\kapelushStudios\MazeMaster\MainView.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>50</default-frame-rate>

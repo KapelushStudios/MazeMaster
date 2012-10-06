@@ -103,7 +103,7 @@ package com.kapelushStudios.MazeMaster.blocks
 		}
 		public function getTexture():Bitmap
 		{
-			return new Bitmap(texture.bitmapData);
+			return texture;
 		}
 	}
 

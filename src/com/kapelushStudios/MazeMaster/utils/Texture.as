@@ -23,6 +23,9 @@ package com.kapelushStudios.MazeMaster.utils
 		[Embed(source = "../../../../resources/entities/Player2.png")]
 		public static var player2:Class;
 		
+		[Embed(source = "../../../../resources/entities/Light.png")]
+		public static var overlay:Class;
+		
 		public static function getBlock(x:int, y:int):Bitmap {
 			var textures:Bitmap = new textury() as Bitmap;
 			var result:Bitmap = new Bitmap(new BitmapData(16, 16, false, 0));
@@ -53,6 +56,10 @@ package com.kapelushStudios.MazeMaster.utils
 				}
 			}
 			return textura;
+		}
+		public static function getOverlay():Bitmap
+		{
+			return new overlay() as Bitmap;
 		}
 		//public static function getAnimation(x:int, y:int, frames:int):Animation
 		//{

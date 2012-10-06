@@ -14,14 +14,15 @@ package com.kapelushStudios.MazeMaster.thread
 		private var repeated:int = 0;
 		private var repeat:int;
 		private var paused:Boolean;
+		private var args:Array;
 		
-		public function Task(method:Function, interval:int, repeat:int, id:int) 
+		public function Task(method:Function, interval:int, repeat:int, id:int, args:Array = null) 
 		{
 			this.repeat = repeat;
 			this.id = id;
 			this.interval = interval;
 			this.method = method;
-			
+			this.args = args;
 		}
 		
 		public function run():void
@@ -29,7 +30,7 @@ package com.kapelushStudios.MazeMaster.thread
 			ticks++;
 			if (ticks == interval) {
 				ticks = 0;
-				method.call();
+				method.apply(null, args);
 				if (repeat != 0) 
 				{
 					repeated++;
@@ -58,7 +59,14 @@ package com.kapelushStudios.MazeMaster.thread
 		{
 			paused = state;
 		}
-		
+		public function getArgs():Array
+		{
+			return args;
+		}
+		public function setArgs(...rest:Array):void
+		{
+			args = rest;
+		}
 	}
 
 }

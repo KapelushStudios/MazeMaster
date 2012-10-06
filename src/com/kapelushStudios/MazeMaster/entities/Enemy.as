@@ -18,7 +18,7 @@ package com.kapelushStudios.MazeMaster.entities
 			
 			// TODO: Get it to work
 			
-			//searchID = MazeMaster.getThread().sheduleRepeatingTask(searchPlayer, 50);
+			searchID = MazeMaster.getThread().sheduleRepeatingTask(searchPlayer, 50);
 		}
 		
 		public function searchPlayer():void 

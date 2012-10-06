@@ -102,6 +102,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		public function action(dir:String):void
 		{
+			trace(Math.round(x/16), ":", Math.round(y/16))
 			if (MazeMaster.getThread().getTask(moveID).isPaused()) {
 				MazeMaster.getThread().getTask(moveID).setPaused(false);
 			}
@@ -113,8 +114,8 @@ package com.kapelushStudios.MazeMaster.entities
 				upcorner1.y = upcorner.y;
 				if (world.collideWith(upcorner) || world.collideWith(upcorner1)) {
 					this.y += getSpeed();
-					world.getBlockAt(upcorner).onEntityWalked(this);
 				}
+				world.getBlockAt(upcorner).onEntityWalked(this);
 			}
 			if (dir == "down") {
 				this.y += getSpeed();
@@ -124,8 +125,8 @@ package com.kapelushStudios.MazeMaster.entities
 				downcorner1.y = downcorner.y;
 				if (world.collideWith(downcorner) || world.collideWith(downcorner1)) {
 					this.y -= getSpeed();
-					world.getBlockAt(downcorner).onEntityWalked(this);
 				}
+				world.getBlockAt(downcorner).onEntityWalked(this);
 			}
 			if (dir == "left") {
 				this.x -= getSpeed();
@@ -135,8 +136,8 @@ package com.kapelushStudios.MazeMaster.entities
 				leftcorner1.y = this.y + 1;
 				if (world.collideWith(leftcorner) || world.collideWith(leftcorner1)) {
 					this.x += getSpeed();
-					world.getBlockAt(leftcorner).onEntityWalked(this);
 				}
+				world.getBlockAt(leftcorner).onEntityWalked(this);
 			}
 			if (dir == "right") {
 				this.x += getSpeed();
@@ -146,8 +147,8 @@ package com.kapelushStudios.MazeMaster.entities
 				rightcorner1.y = this.y + 15;
 				if (world.collideWith(rightcorner) || world.collideWith(rightcorner1)) {
 					this.x -= getSpeed();
-					world.getBlockAt(rightcorner).onEntityWalked(this);
 				}
+				world.getBlockAt(rightcorner).onEntityWalked(this);
 			}
 			if (moveCallback != null) {
 				moveCallback(this);
@@ -163,7 +164,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		override public function getSpeed():Number 
 		{
-			return 1;
+			return 5;
 		}
 		public function setMoveCallback(method:Function):void
 		{

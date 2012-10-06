@@ -32,9 +32,9 @@ package com.kapelushStudios.MazeMaster.thread
 		 * @param	repeat Ile razy ma zostac powtórzone. 0 to w nieskończoność
 		 * @return ID zadania
 		 */
-		public function sheduleRepeatingTask(method:Function, interval:int, repeat:int = 0):int
+		public function sheduleRepeatingTask(method:Function, interval:int, repeat:int = 0, ...args:Array):int
 		{
-			var task:Task = new Task(method, interval, repeat, tasks.length);
+			var task:Task = new Task(method, interval, repeat, tasks.length, args);
 			tasks.push(task);
 			return task.getId();
 		}
@@ -44,9 +44,9 @@ package com.kapelushStudios.MazeMaster.thread
 		 * @param	interval Interwał; 50 to jedna sekunda
 		 * @return ID zadania
 		 */
-		public function sheduleTask(method:Function, interval:int):int
+		public function sheduleTask(method:Function, interval:int, ...args:Array):int
 		{
-			var task:Task = new Task(method, interval, -1, tasks.length);
+			var task:Task = new Task(method, interval, -1, tasks.length, args);
 			tasks.push(task);
 			return task.getId();
 		}

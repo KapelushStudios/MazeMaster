@@ -6,8 +6,11 @@ package com.kapelushStudios.MazeMaster.map
 	 */
 	public class MazeGen 
 	{
-		public static function generateMaze(sizeX:int, sizeY:int):Array
+		static public var thick:int;
+		
+		public static function generateMaze(size:int, thick:int):Array
 		{
+			MazeGen.thick = thick;
 			var result:Array = new Array()
 			var visited:Array = new Array()
 			var queue:Array =  new Array()
@@ -15,32 +18,32 @@ package com.kapelushStudios.MazeMaster.map
 			var coorY:int
 			var repeats:int = 1
 			
-			if (((sizeX % 2) != 1) || ((sizeY % 2) != 1)) 
+			if (((size % 2) != 1) || ((size % 2) != 1)) 
 			{
 				throw new Error("MazeGen Object parameters have to be odd!")
 			}
 			
-			for (var k:int = 0; k < ((sizeX - 1) / 2); k++) 
+			for (var k:int = 0; k < ((size - 1) / 2); k++) 
 			{
 				visited[ k ] = new Array()
 			}
 			
-			for (var l:int = 0; l < ((sizeY - 1) / 2); l++) 
+			for (var l:int = 0; l < ((size - 1) / 2); l++) 
 			{
-				for (var m:int = 0; m < ((sizeX - 1) / 2); m++) 
+				for (var m:int = 0; m < ((size - 1) / 2); m++) 
 				{
 					visited[m][l] = 0
 				}
 			}
 			
-			for (var t:int = 0; t < sizeX; t++) 
+			for (var t:int = 0; t < size; t++) 
 			{
 				result[ t ] = new Array()
 			}
 			
-			for (var i:int = 0; i < sizeY; i++) 
+			for (var i:int = 0; i < size; i++) 
 			{
-				for (var j:int = 0; j < sizeX; j++) 
+				for (var j:int = 0; j < size; j++) 
 				{
 					if (i % 2 == 1)
 					{
@@ -62,18 +65,18 @@ package com.kapelushStudios.MazeMaster.map
 				}
 			}
 			
-			coorX = Math.round(Math.random() * 10000) % ((sizeX - 1) / 2)
-			coorY = Math.round(Math.random() * 10000) % ((sizeY - 1) / 2)
+			coorX = Math.round(Math.random() * 10000) % ((size - 1) / 2)
+			coorY = Math.round(Math.random() * 10000) % ((size - 1) / 2)
 			visited[coorX][coorY] = 1
 			queue.push([coorX, coorY])
 			
-			while (repeats != (((sizeX - 1) / 2) * ((sizeY - 1) / 2)))
+			while (repeats != (((size - 1) / 2) * ((size - 1) / 2)))
 			{
 				var dirTab:Array = [0, 0, 0, 0]
 				var dirNum:int
 				var direction:int
 				
-				if (coorX != ((sizeX - 1) / 2) - 1)
+				if (coorX != ((size - 1) / 2) - 1)
 				{
 				if (searchArray([coorX + 1, coorY], visited))
 				{
@@ -97,7 +100,7 @@ package com.kapelushStudios.MazeMaster.map
 				}
 				}
 				
-				if (coorY != ((sizeY - 1) / 2) - 1)
+				if (coorY != ((size - 1) / 2) - 1)
 				{
 				if (searchArray([coorX, coorY + 1], visited))
 				{
@@ -169,7 +172,7 @@ package com.kapelushStudios.MazeMaster.map
 				}				
 			}
 			
-			return blockFilter(21 * 4, 21 * 4, 0, 2, 10, enlargeArray(4, sizeX, sizeY, result))
+			return blockFilter(21 * 4, 21 * 4, 0, 2, 10, enlargeArray(thick, size, size, result))
 		}
 		
 		private static function searchArray(coordinates:Array, myArray:Array):Boolean 
