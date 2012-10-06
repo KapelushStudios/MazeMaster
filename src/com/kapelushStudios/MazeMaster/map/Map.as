@@ -62,6 +62,8 @@ package com.kapelushStudios.MazeMaster.map
 				for (var l:int = 0; l < bitmapNumber; l++) 
 				{
 					maps[k][l] = new Bitmap(new BitmapData((int)(4095 / MazeGen.thick) * MazeGen.thick, (int)(4095 / MazeGen.thick) * MazeGen.thick, false, 0));
+					maps[k][l].x = (int)(4095 / MazeGen.thick) * MazeGen.thick;
+					maps[k][l].y = (int)(4095 / MazeGen.thick) * MazeGen.thick;
 					map1.addChild(maps[k][l]);
 				}
 			}
@@ -77,8 +79,8 @@ package com.kapelushStudios.MazeMaster.map
 					if (j % (int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) == 0 && j != 0) {
 						actual[1]++;
 					}
-					dest.x = j * 16;
-					dest.y = i * 16;
+					dest.x = (j - ((int)(j/255))*255) * 16;
+					dest.y = (i - ((int)(j/255))*255) * 16;
 					maps[actual[0]][actual[1]].bitmapData.copyPixels(BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData, BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData.rect, dest);
 				}
 				actual[1] = 0;

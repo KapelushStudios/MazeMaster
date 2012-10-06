@@ -28,7 +28,7 @@ package com.kapelushStudios.MazeMaster
 			overlay.height *= multiplier;
 			overlay.x = -2000;
 			overlay.y = -1500;
-			//addChild(overlay);
+			addChild(overlay);
 		}
 		public function setPosition(player:Player):void
 		{
