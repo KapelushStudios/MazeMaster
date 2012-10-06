@@ -62,9 +62,6 @@ package com.kapelushStudios.MazeMaster.map
 				for (var l:int = 0; l < bitmapNumber; l++) 
 				{
 					maps[k][l] = new Bitmap(new BitmapData((int)(4095 / MazeGen.thick) * MazeGen.thick, (int)(4095 / MazeGen.thick) * MazeGen.thick, false, 0));
-					maps[k][l].x = (int)(4095 / MazeGen.thick) * MazeGen.thick;
-					maps[k][l].y = (int)(4095 / MazeGen.thick) * MazeGen.thick;
-					map1.addChild(maps[k][l]);
 				}
 			}
 			var dest:Point = new Point();
@@ -85,6 +82,17 @@ package com.kapelushStudios.MazeMaster.map
 					actual[0]++;
 				}
 			}
+			
+			for (var m:int = 0; m < bitmapNumber; m++) 
+			{
+				for (var n:int = 0; n < bitmapNumber; n++) 
+				{
+					maps[m][n].x = (int)(4095 / MazeGen.thick) * MazeGen.thick;
+					maps[m][n].y = (int)(4095 / MazeGen.thick) * MazeGen.thick;
+					map1.addChild(maps[m][n]);
+				}
+			}
+			
 			addChild(map1);
 		}
 		
