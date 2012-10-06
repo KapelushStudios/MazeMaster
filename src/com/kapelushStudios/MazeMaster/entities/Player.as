@@ -108,47 +108,47 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "up") {
 				this.y -= getSpeed();
-				upcorner.x = this.x - 8;
-				upcorner.y = this.y;
-				upcorner1.x = this.x + 7;
-				upcorner1.y = upcorner.y;
-				if (world.collideWith(upcorner) || world.collideWith(upcorner1)) {
-					this.y += getSpeed();
-				}
-				world.getBlockAt(upcorner).onEntityWalked(this);
+				//upcorner.x = this.x - 8;
+				//upcorner.y = this.y;
+				//upcorner1.x = this.x + 7;
+				//upcorner1.y = upcorner.y;
+				//if (world.collideWith(upcorner) || world.collideWith(upcorner1)) {
+					//this.y += getSpeed();
+				//}
+				//world.getBlockAt(upcorner).onEntityWalked(this);
 			}
 			if (dir == "down") {
 				this.y += getSpeed();
-				downcorner.x = this.x - 8;
-				downcorner.y = this.y + 16;
-				downcorner1.x = this.x + 7;
-				downcorner1.y = downcorner.y;
-				if (world.collideWith(downcorner) || world.collideWith(downcorner1)) {
-					this.y -= getSpeed();
-				}
-				world.getBlockAt(downcorner).onEntityWalked(this);
+				//downcorner.x = this.x - 8;
+				//downcorner.y = this.y + 16;
+				//downcorner1.x = this.x + 7;
+				//downcorner1.y = downcorner.y;
+				//if (world.collideWith(downcorner) || world.collideWith(downcorner1)) {
+					//this.y -= getSpeed();
+				//}
+				//world.getBlockAt(downcorner).onEntityWalked(this);
 			}
 			if (dir == "left") {
 				this.x -= getSpeed();
-				leftcorner.x = this.x - 8;
-				leftcorner.y = this.y + 15;
-				leftcorner1.x = leftcorner.x;
-				leftcorner1.y = this.y + 1;
-				if (world.collideWith(leftcorner) || world.collideWith(leftcorner1)) {
-					this.x += getSpeed();
-				}
-				world.getBlockAt(leftcorner).onEntityWalked(this);
+				//leftcorner.x = this.x - 8;
+				//leftcorner.y = this.y + 15;
+				//leftcorner1.x = leftcorner.x;
+				//leftcorner1.y = this.y + 1;
+				//if (world.collideWith(leftcorner) || world.collideWith(leftcorner1)) {
+					//this.x += getSpeed();
+				//}
+				//world.getBlockAt(leftcorner).onEntityWalked(this);
 			}
 			if (dir == "right") {
 				this.x += getSpeed();
-				rightcorner.x = 7 + this.x;
-				rightcorner.y = this.y + 1;
-				rightcorner1.x = rightcorner.x;
-				rightcorner1.y = this.y + 15;
-				if (world.collideWith(rightcorner) || world.collideWith(rightcorner1)) {
-					this.x -= getSpeed();
-				}
-				world.getBlockAt(rightcorner).onEntityWalked(this);
+				//rightcorner.x = 7 + this.x;
+				//rightcorner.y = this.y + 1;
+				//rightcorner1.x = rightcorner.x;
+				//rightcorner1.y = this.y + 15;
+				//if (world.collideWith(rightcorner) || world.collideWith(rightcorner1)) {
+					//this.x -= getSpeed();
+				//}
+				//world.getBlockAt(rightcorner).onEntityWalked(this);
 			}
 			if (moveCallback != null) {
 				moveCallback(this);
@@ -164,7 +164,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		override public function getSpeed():Number 
 		{
-			return 5;
+			return 10;
 		}
 		public function setMoveCallback(method:Function):void
 		{

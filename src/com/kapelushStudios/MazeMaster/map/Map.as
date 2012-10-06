@@ -87,8 +87,8 @@ package com.kapelushStudios.MazeMaster.map
 			{
 				for (var n:int = 0; n < bitmapNumber; n++) 
 				{
-					maps[m][n].x = (int)(4095 / MazeGen.thick) * MazeGen.thick;
-					maps[m][n].y = (int)(4095 / MazeGen.thick) * MazeGen.thick;
+					maps[m][n].x = ((int)(4095 / MazeGen.thick) * MazeGen.thick) * n;
+					maps[m][n].y = ((int)(4095 / MazeGen.thick) * MazeGen.thick) * m;
 					map1.addChild(maps[m][n]);
 				}
 			}
