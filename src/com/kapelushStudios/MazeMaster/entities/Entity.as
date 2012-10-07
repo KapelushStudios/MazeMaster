@@ -11,14 +11,14 @@ package com.kapelushStudios.MazeMaster.entities
 	public class Entity extends Sprite
 	{
 		public static var ids:int = 0;
-		private var texture:Bitmap;
-		private var type:EntityType;
-		private var _name:String;
+		protected var texture:Bitmap;
+		protected var type:EntityType;
+		protected var _name:String;
 		public var id:int;
-		private var posX:int;
-		private var posY:int;
-		private var health:int;
-		private var speed:Number;
+		protected var posX:int;
+		protected var posY:int;
+		protected var health:int;
+		protected var speed:Number;
 		
 		public function Entity(self:Entity ,texture:Bitmap, type:EntityType, name:String, posX:int, posY:int) 
 		{

@@ -8,13 +8,16 @@ package com.kapelushStudios.MazeMaster.entities
 	 */
 	public class Enemy extends EntityHostile 
 	{
-		private var searchID:int;
-		private var walkID:int;
-		private var path:Path;
+		private var tempX:int;
+		private var tempY:int;
+		protected var searchID:int = 0;
+		protected var walkID:int = 0;
 		
 		public function Enemy() 
 		{
 			super(this, Texture.getBlock(2, 2), "Enemy");
+			
+			speed = 0.5;
 			
 			// TODO: Get it to work
 			
@@ -23,7 +26,20 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function searchPlayer():void 
 		{
-			path = findPath();
+			if (path != null) {
+				if (tempX == Math.round(MazeMaster.getPlayer().x / 16) && tempY == Math.round(MazeMaster.getPlayer().y / 16)) {
+					
+				}
+				else {
+					findPath();
+				}
+				tempX = Math.round(MazeMaster.getPlayer().x / 16);
+				tempY = Math.round(MazeMaster.getPlayer().y / 16);
+			}
+			else {
+				path = new Path();
+				findPath();
+			}
 			if (path != null) 
 			{
 				walkID = MazeMaster.getThread().sheduleRepeatingTask(walkToPlayer, 1);
@@ -32,24 +48,23 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function walkToPlayer():void 
 		{
-			var loc:Array = path[0];
-			if (loc[0] > Math.round(this.x / 16))
+			if (path.get(0, 0) > (int)(this.x / 16))
 			{
 				this.x++;
 			}
-			if (loc[0] < Math.round(this.x / 16))
+			if (path.get(0, 0) < (int)(this.x / 16))
 			{
 				this.x--;
 			}
-			if (loc[1] > Math.round(this.y / 16))
+			if (path.get(0, 1) > (int)(this.y / 16))
 			{
 				this.y++;
 			}
-			if (loc[1] < Math.round(this.y / 16))
+			if (path.get(0, 1) < (int)(this.y / 16))
 			{
 				this.y--;
 			}
-			if (loc[0] == Math.round(this.x / 16) && loc[1] == Math.round(this.y / 16))
+			if (path.get(0, 0) == (int)(this.x / 16) && path.get(0, 1) == (int)(this.y / 16))
 			{
 				path.getNext();
 			}

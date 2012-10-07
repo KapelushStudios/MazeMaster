@@ -6,41 +6,54 @@ package com.kapelushStudios.MazeMaster.entities
 	 * ...
 	 * @author Piotr Brzozowski
 	 */
-	public class Path extends Array
+	public class Path
 	{
-		
-		public function Path(... rest)
+		private var path:Array;
+		public function Path()
 		{
-			super(rest)
+			path = new Array();
 		}
 		
 		public function getNext():Array
 		{
-			return shift();
+			return path.shift();
 		}
 		
-		override AS3 function unshift(...rest):uint
+		public function get(y:int, x:int):int
 		{
-			for each (var p:Point in rest)
-			{
-				super.unshift([p.x, p.y]);
-			}
-			return length;
+			return path[y][x];
 		}
-		override AS3 function push(...rest):uint
+		
+		public function unshift(...rest):uint
 		{
 			for each (var p:Point in rest)
 			{
-				super.push([p.x, p.y]);
+				path.unshift([p.x, p.y]);
 			}
-			return length;
+			return path.length;
+		}
+		public function push(...rest):uint
+		{
+			for each (var p:Point in rest)
+			{
+				path.push([p.x, p.y]);
+			}
+			return path.length;
 		}
 		
 		public function tracePath():void
 		{
-			for each (var n:Array in this)
+			for each (var n:Array in path)
 			{
 				trace(n[0], n[1]);
+			}
+		}
+		
+		public function clear():void 
+		{
+			for (var i:int = 0; i < path.length; i++) 
+			{
+				path.pop();
 			}
 		}
 	

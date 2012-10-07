@@ -26,7 +26,7 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 		}
 		
-		public function findPath(startx:int, starty:int, endx:int, endy:int):Path
+		public function findPath(startx:int, starty:int, endx:int, endy:int, path:Path):Path
 		{
 			if (startx < 0 || startx >= vTile.length)
 				return null;
@@ -62,7 +62,7 @@ package com.kapelushStudios.MazeMaster.entities
 				for each (tile in vCheck)
 					if (lookupTile(tile.x, tile.y, nStep, vReadStart, vWrite, vTile))
 					{
-						return retracePath(tile.x, tile.y, nStep, vWrite, false);
+						return retracePath(tile.x, tile.y, nStep, vWrite, false, path);
 					}
 				nStep++;
 				
@@ -71,7 +71,7 @@ package com.kapelushStudios.MazeMaster.entities
 				for each (tile in vCheck)
 					if (lookupTile(tile.x, tile.y, nStep, vReadEnd, vWrite, vTile))
 					{
-						return retracePath(tile.x, tile.y, nStep, vWrite, true)
+						return retracePath(tile.x, tile.y, nStep, vWrite, true, path)
 					}
 				nStep++;
 			}
@@ -132,7 +132,7 @@ package com.kapelushStudios.MazeMaster.entities
 			return false;
 		}
 		
-		private function retracePath(tilex:int, tiley:int, step:int, vTile:Array, isFromEnd:Boolean):Path
+		private function retracePath(tilex:int, tiley:int, step:int, vTile:Array, isFromEnd:Boolean, path:Path):Path
 		{
 			var pStart:Point;
 			var pEnd:Point;
@@ -147,7 +147,8 @@ package com.kapelushStudios.MazeMaster.entities
 				pEnd = getTargetTile(tilex, tiley, step - 1, vTile);
 			}
 			
-			var vPath:Path = new Path();
+			var vPath:Path = path;
+			vPath.clear();
 			var nStep:int = isFromEnd ? step - 1 : step - 2;
 			while (pStart != null && nStep > 0)
 			{

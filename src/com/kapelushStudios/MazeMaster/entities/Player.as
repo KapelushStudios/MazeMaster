@@ -9,6 +9,7 @@ package com.kapelushStudios.MazeMaster.entities
 	import flash.display.Bitmap;
 	import flash.geom.*;
 	import flash.system.*;
+	
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -34,8 +35,9 @@ package com.kapelushStudios.MazeMaster.entities
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
+		private var noCollision:Boolean = false;
 		
-		public function Player() 
+		public function Player()
 		{
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
@@ -62,110 +64,144 @@ package com.kapelushStudios.MazeMaster.entities
 			return inventory;
 		}
 		
-		public function idle():void 
+		public function idle():void
 		{
 			MazeMaster.getThread().getTask(moveID).setPaused(true);
 			setTexture(state3);
 			actualTex = 0;
 		}
 		
-		public function walkState():void 
+		public function walkState():void
 		{
-			if (actualTex == 0) {
+			if (actualTex == 0)
+			{
 				setTexture(state2);
 				actualTex = 1;
 			}
-			else if (actualTex == 1) {
+			else if (actualTex == 1)
+			{
 				setTexture(state3);
 				actualTex = 2;
 			}
-			else if (actualTex == 2) {
+			else if (actualTex == 2)
+			{
 				setTexture(state1);
 				actualTex = 3;
 			}
-			else if (actualTex == 3) {
+			else if (actualTex == 3)
+			{
 				setTexture(state3);
 				actualTex = 0;
 			}
 		}
-		override public function getMaxHealth():int 
+		
+		override public function getMaxHealth():int
 		{
-			return 20;
+			return 5;
 		}
-		override public function getType():EntityType 
+		
+		override public function getType():EntityType
 		{
 			return EntityType.PLAYER;
 		}
-		override protected function killEntity():void 
+		
+		override protected function killEntity():void
 		{
 			super.killEntity();
 		}
+		
 		public function action(dir:String):void
 		{
-			trace(Math.round(x/16), ":", Math.round(y/16))
-			if (MazeMaster.getThread().getTask(moveID).isPaused()) {
+			trace(Math.round(x / 16), ":", Math.round(y / 16))
+			if (MazeMaster.getThread().getTask(moveID).isPaused())
+			{
 				MazeMaster.getThread().getTask(moveID).setPaused(false);
 			}
-			if (dir == "up") {
+			if (dir == "up")
+			{
 				this.y -= getSpeed();
-				//upcorner.x = this.x - 8;
-				//upcorner.y = this.y;
-				//upcorner1.x = this.x + 7;
-				//upcorner1.y = upcorner.y;
-				//if (world.collideWith(upcorner) || world.collideWith(upcorner1)) {
-					//this.y += getSpeed();
-				//}
-				//world.getBlockAt(upcorner).onEntityWalked(this);
+				if (!noCollision)
+				{
+					upcorner.x = this.x - 8;
+					upcorner.y = this.y;
+					upcorner1.x = this.x + 7;
+					upcorner1.y = upcorner.y;
+					if (world.collideWith(upcorner) || world.collideWith(upcorner1))
+					{
+						this.y += getSpeed();
+					}
+				}
+				world.getBlockAt(upcorner).onEntityWalked(this);
 			}
-			if (dir == "down") {
+			if (dir == "down")
+			{
 				this.y += getSpeed();
-				//downcorner.x = this.x - 8;
-				//downcorner.y = this.y + 16;
-				//downcorner1.x = this.x + 7;
-				//downcorner1.y = downcorner.y;
-				//if (world.collideWith(downcorner) || world.collideWith(downcorner1)) {
-					//this.y -= getSpeed();
-				//}
-				//world.getBlockAt(downcorner).onEntityWalked(this);
+				if (!noCollision)
+				{
+					downcorner.x = this.x - 8;
+					downcorner.y = this.y + 16;
+					downcorner1.x = this.x + 7;
+					downcorner1.y = downcorner.y;
+					if (world.collideWith(downcorner) || world.collideWith(downcorner1))
+					{
+						this.y -= getSpeed();
+					}
+				}
+				world.getBlockAt(downcorner).onEntityWalked(this);
 			}
-			if (dir == "left") {
+			if (dir == "left")
+			{
 				this.x -= getSpeed();
-				//leftcorner.x = this.x - 8;
-				//leftcorner.y = this.y + 15;
-				//leftcorner1.x = leftcorner.x;
-				//leftcorner1.y = this.y + 1;
-				//if (world.collideWith(leftcorner) || world.collideWith(leftcorner1)) {
-					//this.x += getSpeed();
-				//}
-				//world.getBlockAt(leftcorner).onEntityWalked(this);
+				if (!noCollision)
+				{
+					leftcorner.x = this.x - 8;
+					leftcorner.y = this.y + 15;
+					leftcorner1.x = leftcorner.x;
+					leftcorner1.y = this.y + 1;
+					if (world.collideWith(leftcorner) || world.collideWith(leftcorner1))
+					{
+						this.x += getSpeed();
+					}
+				}
+				world.getBlockAt(leftcorner).onEntityWalked(this);
 			}
-			if (dir == "right") {
+			if (dir == "right")
+			{
 				this.x += getSpeed();
-				//rightcorner.x = 7 + this.x;
-				//rightcorner.y = this.y + 1;
-				//rightcorner1.x = rightcorner.x;
-				//rightcorner1.y = this.y + 15;
-				//if (world.collideWith(rightcorner) || world.collideWith(rightcorner1)) {
-					//this.x -= getSpeed();
-				//}
-				//world.getBlockAt(rightcorner).onEntityWalked(this);
+				if (!noCollision)
+				{
+					rightcorner.x = 7 + this.x;
+					rightcorner.y = this.y + 1;
+					rightcorner1.x = rightcorner.x;
+					rightcorner1.y = this.y + 15;
+					if (world.collideWith(rightcorner) || world.collideWith(rightcorner1))
+					{
+						this.x -= getSpeed();
+					}
+				}
+				world.getBlockAt(rightcorner).onEntityWalked(this);
 			}
-			if (moveCallback != null) {
+			if (moveCallback != null)
+			{
 				moveCallback(this);
 			}
 		}
+		
 		public function getMaxMana():int
 		{
 			return 100;
 		}
+		
 		public function getMana():Number
 		{
 			return mana;
 		}
-		override public function getSpeed():Number 
+		
+		override public function getSpeed():Number
 		{
-			return 20;
+			return 1;
 		}
+		
 		public function setMoveCallback(method:Function):void
 		{
 			moveCallback = method;

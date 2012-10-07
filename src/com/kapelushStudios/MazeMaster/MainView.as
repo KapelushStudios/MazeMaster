@@ -12,7 +12,7 @@ package com.kapelushStudios.MazeMaster
 	public class MainView extends Sprite 
 	{
 		private var mazeMaster:MazeMaster;
-		private var multiplier:int = 1;
+		private var multiplier:int = 6;
 		private var overlay:Bitmap;
 		
 		public function MainView() 
@@ -28,7 +28,7 @@ package com.kapelushStudios.MazeMaster
 			overlay.height *= multiplier;
 			overlay.x = -2000;
 			overlay.y = -1500;
-			addChild(overlay);
+			//addChild(overlay);
 		}
 		public function setPosition(player:Player):void
 		{
