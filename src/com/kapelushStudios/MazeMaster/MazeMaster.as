@@ -36,7 +36,7 @@ package com.kapelushStudios.MazeMaster
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			map = new Map(MazeGen.generateMaze(87, 3));
+			map = new Map(MazeGen.generateMaze(401, 3));
 			//map.y = -22;
 			//map.x = -6;
 			player = new Player();

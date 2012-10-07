@@ -164,7 +164,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		override public function getSpeed():Number 
 		{
-			return 10;
+			return 20;
 		}
 		public function setMoveCallback(method:Function):void
 		{
