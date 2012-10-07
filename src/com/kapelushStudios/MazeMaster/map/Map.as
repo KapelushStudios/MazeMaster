@@ -50,7 +50,7 @@ package com.kapelushStudios.MazeMaster.map
 			
 			var bitmapNumber:int = (int)((map.length / MazeGen.thick) / (int)(255 / MazeGen.thick));
 			
-			if (((map.length / MazeGen.thick) % (int)(255 / MazeGen.thick)) != 0) 
+			if ((map.length % 255) != 0) 
 			{
 				bitmapNumber++;
 			}
@@ -61,7 +61,7 @@ package com.kapelushStudios.MazeMaster.map
 				maps[k] = new Array();
 				for (var l:int = 0; l < bitmapNumber; l++) 
 				{
-					maps[k][l] = new Bitmap(new BitmapData((int)(4095 / MazeGen.thick) * MazeGen.thick, (int)(4095 / MazeGen.thick) * MazeGen.thick, false, 0));
+					maps[k][l] = new Bitmap(new BitmapData((int)(4080 / MazeGen.thick) * MazeGen.thick, (int)(4080 / MazeGen.thick) * MazeGen.thick, false, 0));
 				}
 			}
 			var dest:Point = new Point();
@@ -70,15 +70,15 @@ package com.kapelushStudios.MazeMaster.map
 			{
 				for (var j:int = 0; j < map[0].length; j++) 
 				{
-					dest.x = (j - ((int)(j/255))*255) * 16;
-					dest.y = (i - ((int)(j/255))*255) * 16;
+					dest.x = /*(j - ((int)(j/255))*255) * 16*/ (j % 255) * 16;
+					dest.y = /*(i - ((int)(j/255))*255) * 16*/ (i % 255) * 16;
 					maps[actual[0]][actual[1]].bitmapData.copyPixels(BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData, BlockList.getBlockToTest(map[i][j]).getTexture().bitmapData.rect, dest);
-					if (j % ((int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) - 1) == 0 && j != 0) {
+					if (((j + 1) % 255) == 0 && j != 0) {
 						actual[1]++;
 					}
 				}
 				actual[1] = 0;
-				if (i % ((int)(((int)(4095 / MazeGen.thick) * MazeGen.thick) / 16) - 1)  == 0 && i != 0) {
+				if (((i + 1) % 255)  == 0 && i != 0) {
 					actual[0]++;
 				}
 			}
@@ -87,8 +87,8 @@ package com.kapelushStudios.MazeMaster.map
 			{
 				for (var n:int = 0; n < bitmapNumber; n++) 
 				{
-					maps[m][n].x = ((int)(4095 / MazeGen.thick) * MazeGen.thick) * n;
-					maps[m][n].y = ((int)(4095 / MazeGen.thick) * MazeGen.thick) * m;
+					maps[m][n].x = ((int)(4080 / MazeGen.thick) * MazeGen.thick) * n;
+					maps[m][n].y = ((int)(4080 / MazeGen.thick) * MazeGen.thick) * m;
 					map1.addChild(maps[m][n]);
 				}
 			}
