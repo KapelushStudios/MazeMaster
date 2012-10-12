@@ -1,6 +1,6 @@
 package com.kapelushStudios.MazeMaster.entities
 {
-	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.map.Maze;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.errors.IllegalOperationError;
@@ -60,7 +60,7 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		protected function killEntity():void
 		{
-			//MazeMaster.getInstance().onEntityKilled(this);
+			//Maze.getInstance().onEntityKilled(this);
 		}
 		
 		public function getHealth():int

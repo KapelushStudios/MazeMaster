@@ -2,9 +2,9 @@ package com.kapelushStudios.MazeMaster.utils
 {
 	import flash.display.*;
 	import flash.events.Event;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
-	import flash.net.URLRequest;
+	import flash.geom.Point;//logoff 143, 115
+	import flash.geom.Rectangle;//start 60, 115
+	import flash.net.URLRequest;//option 25, 115
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -25,6 +25,37 @@ package com.kapelushStudios.MazeMaster.utils
 		
 		[Embed(source = "../../../../resources/entities/Light.png")]
 		public static var overlay:Class;
+		
+		[Embed(source = "../../../../resources/option0.png")]
+		public static var option0:Class;
+		
+		[Embed(source = "../../../../resources/option1.png")]
+		public static var option1:Class;
+		
+		[Embed(source = "../../../../resources/option2.png")]
+		public static var option2:Class;
+		
+		[Embed(source = "../../../../resources/start0.png")]
+		public static var start0:Class;
+		
+		[Embed(source = "../../../../resources/start1.png")]
+		public static var start1:Class;
+		
+		[Embed(source = "../../../../resources/start2.png")]
+		public static var start2:Class;
+		
+		[Embed(source = "../../../../resources/logoff0.png")]
+		public static var logoff0:Class;
+		
+		[Embed(source = "../../../../resources/logoff1.png")]
+		public static var logoff1:Class;
+		
+		[Embed(source = "../../../../resources/logoff2.png")]
+		public static var logoff2:Class;
+		
+		[Embed(source="../../../../resources/MainMenu.png")]
+		public static var menu:Class;
+		
 		
 		public static function getBlock(x:int, y:int):Bitmap {
 			var textures:Bitmap = new textury() as Bitmap;
@@ -61,14 +92,52 @@ package com.kapelushStudios.MazeMaster.utils
 		{
 			return new overlay() as Bitmap;
 		}
-		//public static function getAnimation(x:int, y:int, frames:int):Animation
-		//{
-			//var textures1:Bitmap = new textury() as Bitmap;
-			//var textures:Bitmap = new Bitmap(new BitmapData(16 * frames, 16, false));
-			//textures.bitmapData.copyPixels(textures1.bitmapData, new Rectangle(x * 16, y * 16, 16 * frames, 16), new Point());
-			//var animation:Animation = new Animation(textures, frames);
-			//return animation;
-		//}
+		
+		public static function getButton(type:State, state:int):Bitmap
+		{
+			switch (type) 
+			{
+				case State.OPTIONS:
+					if (state == 0) {
+						return new option0() as Bitmap;
+					}
+					else if (state == 1){
+						return new option1() as Bitmap;
+					}
+					else if (state == 2){
+						return new option2() as Bitmap;
+					}
+				break;
+				case State.GAME:
+					if (state == 0) {
+						return new start0() as Bitmap;
+					}
+					else if (state == 1){
+						return new start1() as Bitmap;
+					}
+					else if (state == 2){
+						return new start2() as Bitmap;
+					}
+				break;
+				case State.EXIT:
+					if (state == 0) {
+						return new logoff0() as Bitmap;
+					}
+					else if (state == 1){
+						return new logoff1() as Bitmap;
+					}
+					else if (state == 2){
+						return new logoff2() as Bitmap;
+					}
+				break;
+			}
+			return null;
+		}
+		
+		public static function getMainMenu():Bitmap
+		{
+			return new menu() as Bitmap;
+		}
 		
 	}
 

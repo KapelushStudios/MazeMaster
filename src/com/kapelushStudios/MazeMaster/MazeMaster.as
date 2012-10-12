@@ -1,62 +1,38 @@
-package com.kapelushStudios.MazeMaster
+package com.kapelushStudios.MazeMaster 
 {
-	import com.kapelushStudios.MazeMaster.blocks.BlockList;
-	import com.kapelushStudios.MazeMaster.entities.Enemy;
-	import com.kapelushStudios.MazeMaster.entities.Player;
-	import com.kapelushStudios.MazeMaster.item.Items;
-	import com.kapelushStudios.MazeMaster.map.Map;
-	import com.kapelushStudios.MazeMaster.map.MazeGen;
-	import com.kapelushStudios.MazeMaster.thread.Thread;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
+	import com.kapelushStudios.MazeMaster.states.GameState;
+	import com.kapelushStudios.MazeMaster.states.MenuState;
+	import com.kapelushStudios.MazeMaster.states.OptionsState;
+	import com.kapelushStudios.MazeMaster.utils.State;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
 	 */
-	public class MazeMaster extends Sprite 
-	{	
-		private static var thread:Thread;
-		private static var instance:MazeMaster;
-		private static var map:Map;
-		private static var player:Player;
-		private var enemy:Enemy;
-		public function MazeMaster():void 
-		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
-		}
+	public class MazeMaster extends Sprite
+	{
+		static private var instance:MazeMaster;
+		private var menuInstance:MenuState;
+		private var gameInstance:GameState;
+		private var optionsInstance:OptionsState;
+		private var actualStateInstance:Sprite;
 		
-		private function init(e:Event = null):void 
+		public function MazeMaster() 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			BlockList.init();
-			Items.init();
 			instance = this;
-			thread = new Thread();
-			addEventListener(Event.ENTER_FRAME, enterFrame);
-			map = new Map(MazeGen.generateMaze(31, 3));
-			player = new Player();
-			player.x = 16 * MazeGen.thick;
-			player.y = (16 * MazeGen.thick) - 8;
-			map.spawnEntity(player);
-			addChild(map);//3, 21
-			enemy = new Enemy();
-			enemy.x = 48;
-			enemy.y = 21 * 16;
-			map.spawnEntity(enemy);
+			addEventListener(Event.ENTER_FRAME, mainLoop);
+			menuInstance = new MenuState();
+			optionsInstance = new OptionsState();
+			addChild(menuInstance);
+			actualStateInstance = menuInstance;
 		}
 		
-		private function enterFrame(e:Event):void 
+		private function mainLoop(e:Event):void 
 		{
-			thread.run(e);
-		}
-		
-		public static function getThread():Thread
-		{
-			return thread;
+			if (getState() == State.GAME) {
+				gameInstance.getMaze().run();
+			}
 		}
 		
 		public static function getInstance():MazeMaster
@@ -64,14 +40,33 @@ package com.kapelushStudios.MazeMaster
 			return instance;
 		}
 		
-		public static function getMap():Map
+		public function setState(state:State):void
 		{
-			return map;
+			if (state == getState()) {
+				return;
+			}
+			State.actualState = state;
+			removeChild(actualStateInstance);
+			if (state == State.GAME) {
+				gameInstance = new GameState();
+				actualStateInstance = gameInstance;
+				addChild(actualStateInstance);
+			}
+			else if (state == State.MENU) {
+				actualStateInstance = menuInstance;
+				addChild(actualStateInstance);
+			}
+			else if (state == State.OPTIONS) {
+				actualStateInstance = optionsInstance;
+				addChild(actualStateInstance);
+			}
 		}
-		public static function getPlayer():Player
+		
+		public function getState():State
 		{
-			return player;
+			return State.actualState;
 		}
+		
 	}
-	
+
 }

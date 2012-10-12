@@ -3,7 +3,7 @@ package com.kapelushStudios.MazeMaster.entities
 	import com.kapelushStudios.MazeMaster.item.Inventory;
 	import com.kapelushStudios.MazeMaster.item.Item;
 	import com.kapelushStudios.MazeMaster.map.Map;
-	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.map.Maze;
 	import com.kapelushStudios.MazeMaster.utils.Control;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
@@ -53,9 +53,9 @@ package com.kapelushStudios.MazeMaster.entities
 			leftcorner1 = new Point();
 			rightcorner = new Point();
 			rightcorner1 = new Point();
-			world = MazeMaster.getMap();
-			moveID = MazeMaster.getThread().sheduleRepeatingTask(walkState, 7);
-			MazeMaster.getThread().getTask(moveID).setPaused(true);
+			world = Maze.getMap();
+			moveID = Maze.getThread().sheduleRepeatingTask(walkState, 7);
+			Maze.getThread().getTask(moveID).setPaused(true);
 			inventory = new Inventory();
 		}
 		
@@ -66,7 +66,7 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function idle():void
 		{
-			MazeMaster.getThread().getTask(moveID).setPaused(true);
+			Maze.getThread().getTask(moveID).setPaused(true);
 			setTexture(state3);
 			actualTex = 0;
 		}
@@ -113,9 +113,9 @@ package com.kapelushStudios.MazeMaster.entities
 		public function action(dir:String):void
 		{
 			trace(Math.round(x / 16), ":", Math.round(y / 16))
-			if (MazeMaster.getThread().getTask(moveID).isPaused())
+			if (Maze.getThread().getTask(moveID).isPaused())
 			{
-				MazeMaster.getThread().getTask(moveID).setPaused(false);
+				Maze.getThread().getTask(moveID).setPaused(false);
 			}
 			if (dir == "up")
 			{

@@ -1,6 +1,6 @@
 package com.kapelushStudios.MazeMaster.entities 
 {
-	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.map.Maze;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	/**
 	 * ...
@@ -21,20 +21,23 @@ package com.kapelushStudios.MazeMaster.entities
 			
 			// TODO: Get it to work
 			
-			searchID = MazeMaster.getThread().sheduleRepeatingTask(searchPlayer, 50);
+			searchID = Maze.getThread().sheduleRepeatingTask(searchPlayer, 50);
+			walkID = Maze.getThread().sheduleRepeatingTask(walkToPlayer, 1);
+			Maze.getThread().getTask(walkID).setPaused(true);
+			
 		}
 		
 		public function searchPlayer():void 
 		{
 			if (path != null) {
-				if (tempX == Math.round(MazeMaster.getPlayer().x / 16) && tempY == Math.round(MazeMaster.getPlayer().y / 16)) {
+				if (tempX == Math.round(Maze.getPlayer().x / 16) && tempY == Math.round(Maze.getPlayer().y / 16)) {
 					
 				}
 				else {
 					findPath();
 				}
-				tempX = Math.round(MazeMaster.getPlayer().x / 16);
-				tempY = Math.round(MazeMaster.getPlayer().y / 16);
+				tempX = Math.round(Maze.getPlayer().x / 16);
+				tempY = Math.round(Maze.getPlayer().y / 16);
 			}
 			else {
 				path = new Path();
@@ -42,12 +45,15 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (path != null) 
 			{
-				walkID = MazeMaster.getThread().sheduleRepeatingTask(walkToPlayer, 1);
+				Maze.getThread().getTask(walkID).setPaused(false);
 			}
 		}
 		
 		public function walkToPlayer():void 
 		{
+			if (path.getLength() == 0) {
+				Maze.getThread().getTask(walkID).setPaused(true);
+			}
 			if (path.get(0, 0) > (int)(this.x / 16))
 			{
 				this.x++;

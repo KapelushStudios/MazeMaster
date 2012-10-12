@@ -3,7 +3,6 @@ package com.kapelushStudios.MazeMaster.map
 	import com.kapelushStudios.MazeMaster.blocks.Block;
 	import com.kapelushStudios.MazeMaster.blocks.BlockList;
 	import com.kapelushStudios.MazeMaster.entities.Entity;
-	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -35,7 +34,7 @@ package com.kapelushStudios.MazeMaster.map
 			blocks = new Array();
 			renderDistance = 4;
 			renderMap();
-			//MazeMaster.getThread().sheduleRepeatingTask(renderMap, 1, 0, false);
+			//Maze.getThread().sheduleRepeatingTask(renderMap, 1, 0, false);
 		}
 		
 		/**

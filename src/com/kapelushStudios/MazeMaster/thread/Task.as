@@ -1,6 +1,6 @@
 package com.kapelushStudios.MazeMaster.thread 
 {
-	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.map.Maze;
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -36,12 +36,12 @@ package com.kapelushStudios.MazeMaster.thread
 					repeated++;
 					if (repeated == repeat) 
 					{
-						MazeMaster.getThread().cancelTask(id);
+						Maze.getThread().cancelTask(id);
 					}
 				}
 				if (repeat == -1)
 				{
-					MazeMaster.getThread().cancelTask(id);
+					Maze.getThread().cancelTask(id);
 				}
 			}
 		}

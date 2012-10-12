@@ -56,6 +56,10 @@ package com.kapelushStudios.MazeMaster.entities
 				path.pop();
 			}
 		}
+		public function getLength():int
+		{
+			return path.length;
+		}
 	
 	}
 
