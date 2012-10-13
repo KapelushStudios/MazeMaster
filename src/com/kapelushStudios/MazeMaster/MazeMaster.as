@@ -4,8 +4,15 @@ package com.kapelushStudios.MazeMaster
 	import com.kapelushStudios.MazeMaster.states.MenuState;
 	import com.kapelushStudios.MazeMaster.states.OptionsState;
 	import com.kapelushStudios.MazeMaster.utils.State;
+	import com.kapelushStudios.MazeMaster.utils.Texture;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.system.System;
+	import flash.ui.Keyboard;
+	import flash.ui.Mouse;
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -17,6 +24,7 @@ package com.kapelushStudios.MazeMaster
 		private var gameInstance:GameState;
 		private var optionsInstance:OptionsState;
 		private var actualStateInstance:Sprite;
+		private var cursor:Bitmap;
 		
 		public function MazeMaster() 
 		{
@@ -26,6 +34,16 @@ package com.kapelushStudios.MazeMaster
 			optionsInstance = new OptionsState();
 			addChild(menuInstance);
 			actualStateInstance = menuInstance;
+			cursor = Texture.getCursor();
+			addChild(cursor);
+			Mouse.hide();
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, stage_mouseMove);
+		}
+		
+		private function stage_mouseMove(e:MouseEvent):void 
+		{
+			cursor.x = mouseX;
+			cursor.y = mouseY;
 		}
 		
 		private function mainLoop(e:Event):void 

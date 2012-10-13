@@ -2,9 +2,14 @@ package com.kapelushStudios.MazeMaster.states
 {
 	import com.kapelushStudios.MazeMaster.entities.Player;
 	import com.kapelushStudios.MazeMaster.map.Maze;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.utils.State;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * ...
@@ -30,6 +35,25 @@ package com.kapelushStudios.MazeMaster.states
 			overlay.y = -1500;
 			addChild(overlay);
 			Maze.getPlayer().setMoveCallback(setPosition);
+			if (stage){
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
+			}
+			else {
+				addEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			}
+		}
+		
+		private function addedToStage(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
+		}
+		
+		private function stage_keyDown(e:KeyboardEvent):void 
+		{
+			if (e.keyCode == Keyboard.ESCAPE) {
+				MazeMaster.getInstance().setState(State.MENU);
+			}
 		}
 		public function setPosition(player:Player):void
 		{

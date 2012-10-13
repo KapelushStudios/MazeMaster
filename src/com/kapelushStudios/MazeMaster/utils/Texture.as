@@ -2,9 +2,9 @@ package com.kapelushStudios.MazeMaster.utils
 {
 	import flash.display.*;
 	import flash.events.Event;
-	import flash.geom.Point;//logoff 143, 115
-	import flash.geom.Rectangle;//start 60, 115
-	import flash.net.URLRequest;//option 25, 115
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.net.URLRequest;
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -26,35 +26,38 @@ package com.kapelushStudios.MazeMaster.utils
 		[Embed(source = "../../../../resources/entities/Light.png")]
 		public static var overlay:Class;
 		
-		[Embed(source = "../../../../resources/option0.png")]
+		[Embed(source = "../../../../resources/gui/menu/option0.png")]
 		public static var option0:Class;
 		
-		[Embed(source = "../../../../resources/option1.png")]
+		[Embed(source = "../../../../resources/gui/menu/option1.png")]
 		public static var option1:Class;
 		
-		[Embed(source = "../../../../resources/option2.png")]
+		[Embed(source = "../../../../resources/gui/menu/option2.png")]
 		public static var option2:Class;
 		
-		[Embed(source = "../../../../resources/start0.png")]
+		[Embed(source = "../../../../resources/gui/menu/start0.png")]
 		public static var start0:Class;
 		
-		[Embed(source = "../../../../resources/start1.png")]
+		[Embed(source = "../../../../resources/gui/menu/start1.png")]
 		public static var start1:Class;
 		
-		[Embed(source = "../../../../resources/start2.png")]
+		[Embed(source = "../../../../resources/gui/menu/start2.png")]
 		public static var start2:Class;
 		
-		[Embed(source = "../../../../resources/logoff0.png")]
+		[Embed(source = "../../../../resources/gui/menu/logoff0.png")]
 		public static var logoff0:Class;
 		
-		[Embed(source = "../../../../resources/logoff1.png")]
+		[Embed(source = "../../../../resources/gui/menu/logoff1.png")]
 		public static var logoff1:Class;
 		
-		[Embed(source = "../../../../resources/logoff2.png")]
+		[Embed(source = "../../../../resources/gui/menu/logoff2.png")]
 		public static var logoff2:Class;
 		
-		[Embed(source="../../../../resources/MainMenu.png")]
+		[Embed(source="../../../../resources/gui/menu/MainMenu.png")]
 		public static var menu:Class;
+		
+		[Embed(source="../../../../resources/gui/cursor.png")]
+		public static var cursor:Class;
 		
 		
 		public static function getBlock(x:int, y:int):Bitmap {
@@ -137,6 +140,23 @@ package com.kapelushStudios.MazeMaster.utils
 		public static function getMainMenu():Bitmap
 		{
 			return new menu() as Bitmap;
+		}
+		
+		public static function getCursor():Bitmap
+		{
+			var textura:Bitmap = new cursor() as Bitmap;
+			
+			for (var i:int = 0; i < Math.round(textura.width); i++) 
+			{
+				for (var j:int = 0; j < Math.round(textura.height); j++) 
+				{
+					if (textura.bitmapData.getPixel(i, j) == 0xCC22BB)
+					{
+						textura.bitmapData.setPixel32(i, j, 0x00FFFFFF);
+					}
+				}
+			}
+			return textura;
 		}
 		
 	}
