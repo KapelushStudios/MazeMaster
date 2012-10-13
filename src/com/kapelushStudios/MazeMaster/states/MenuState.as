@@ -1,6 +1,7 @@
 package com.kapelushStudios.MazeMaster.states 
 {
 	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.utils.Animation;
 	import com.kapelushStudios.MazeMaster.utils.State;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
@@ -41,12 +42,16 @@ package com.kapelushStudios.MazeMaster.states
 			startButton.y = 115 * multiplier;
 			optionsButton.y = 115 * multiplier;
 			
-			addChild(main);
-			addChild(optionsButton);
-			addChild(startButton);
-			addChild(exitButton);
+			//addChild(main);
+			//addChild(optionsButton);
+			//addChild(startButton);
+			//addChild(exitButton);
 			
 			startButton.addEventListener(MouseEvent.CLICK, startButton_click);
+			
+			var animation:Animation = Texture.getAnimation(0, 0, 3, 5);
+			
+			addChild(animation);
 		}
 		
 		private function startButton_click(e:MouseEvent):void 

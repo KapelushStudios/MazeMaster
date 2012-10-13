@@ -66,6 +66,7 @@ package com.kapelushStudios.MazeMaster
 			State.actualState = state;
 			removeChild(actualStateInstance);
 			if (state == State.GAME) {
+				removeChild(cursor);
 				gameInstance = new GameState();
 				actualStateInstance = gameInstance;
 				addChild(actualStateInstance);
@@ -73,10 +74,13 @@ package com.kapelushStudios.MazeMaster
 			else if (state == State.MENU) {
 				actualStateInstance = menuInstance;
 				addChild(actualStateInstance);
+				addChild(cursor);
 			}
 			else if (state == State.OPTIONS) {
+				removeChild(cursor);
 				actualStateInstance = optionsInstance;
 				addChild(actualStateInstance);
+				addChild(cursor);
 			}
 		}
 		

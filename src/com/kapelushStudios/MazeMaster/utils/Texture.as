@@ -159,6 +159,19 @@ package com.kapelushStudios.MazeMaster.utils
 			return textura;
 		}
 		
+		// TODO: Nie ruszać! Funkcja w fazie testów
+		
+		public static function getAnimation(x:int, y:int, frameNum:int, speed:int):Animation
+		{
+			var textures:Bitmap = new textury() as Bitmap;
+			var result:Bitmap = new Bitmap(new BitmapData(16 * frameNum, 16, false, 0));
+			result.bitmapData.copyPixels(textures.bitmapData, new Rectangle(x * 16, y * 16, 16 *  frameNum, 16 ), new Point(0, 0));
+			
+			var animation:Animation = new Animation(result, speed, frameNum);
+			
+			return animation;
+		}
+		
 	}
 
 }
