@@ -1,5 +1,6 @@
 package com.kapelushStudios.MazeMaster.utils
 {
+	import com.kapelushStudios.MazeMaster.entities.EntityType;
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -170,6 +171,17 @@ package com.kapelushStudios.MazeMaster.utils
 			var animation:Animation = new Animation(result, speed, frameNum);
 			
 			return animation;
+		}
+		
+		static public function getEntity(type:EntityType):Bitmap 
+		{
+			switch (type) 
+			{
+				case EntityType.BAT:
+					return getBlock(3, 3);
+				break;
+			}
+			return null;
 		}
 		
 	}

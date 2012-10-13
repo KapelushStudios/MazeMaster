@@ -1,6 +1,7 @@
 package com.kapelushStudios.MazeMaster.map
 {
 	import com.kapelushStudios.MazeMaster.blocks.BlockList;
+	import com.kapelushStudios.MazeMaster.entities.Bat;
 	import com.kapelushStudios.MazeMaster.entities.Enemy;
 	import com.kapelushStudios.MazeMaster.entities.Player;
 	import com.kapelushStudios.MazeMaster.item.Items;
@@ -20,7 +21,7 @@ package com.kapelushStudios.MazeMaster.map
 		private static var instance:Maze;
 		private static var map:Map;
 		private static var player:Player;
-		private var enemy:Enemy;
+		private var enemy:Bat;
 		public function Maze():void 
 		{
 			init();
@@ -34,16 +35,16 @@ package com.kapelushStudios.MazeMaster.map
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			map = new Map(MazeGen.generateMaze(31, 3));
+			map = new Map(MazeGen.generateMaze(201, 3));
 			player = new Player();
 			player.x = 16 * MazeGen.thick;
 			player.y = (16 * MazeGen.thick) - 8;
 			map.spawnEntity(player);
 			addChild(map);
-			//enemy = new Enemy();
-			//enemy.x = 48;
-			//enemy.y = 21 * 16;
-			//map.spawnEntity(enemy);
+			enemy = new Bat();
+			enemy.x = 48;
+			enemy.y = 21 * 16;
+			map.spawnEntity(enemy);
 		}
 		
 		private function enterFrame(e:Event):void 

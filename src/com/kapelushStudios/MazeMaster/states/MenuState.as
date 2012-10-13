@@ -42,16 +42,19 @@ package com.kapelushStudios.MazeMaster.states
 			startButton.y = 115 * multiplier;
 			optionsButton.y = 115 * multiplier;
 			
-			//addChild(main);
-			//addChild(optionsButton);
-			//addChild(startButton);
-			//addChild(exitButton);
+			addChild(main);
+			addChild(optionsButton);
+			addChild(startButton);
+			addChild(exitButton);
 			
 			startButton.addEventListener(MouseEvent.CLICK, startButton_click);
 			
-			var animation:Animation = Texture.getAnimation(0, 0, 3, 5);
-			
-			addChild(animation);
+			exitButton.addEventListener(MouseEvent.CLICK, exitButton_click);
+		}
+		
+		private function exitButton_click(e:MouseEvent):void 
+		{
+			MazeMaster.getInstance().setState(State.EXIT);
 		}
 		
 		private function startButton_click(e:MouseEvent):void 

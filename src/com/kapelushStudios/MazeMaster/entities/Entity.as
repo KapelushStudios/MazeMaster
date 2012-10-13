@@ -15,28 +15,26 @@ package com.kapelushStudios.MazeMaster.entities
 		protected var type:EntityType;
 		protected var _name:String;
 		public var id:int;
-		protected var posX:int;
-		protected var posY:int;
 		protected var health:int;
 		protected var speed:Number;
 		
-		public function Entity(self:Entity ,texture:Bitmap, type:EntityType, name:String, posX:int, posY:int) 
+		public function Entity(self:Entity ,texture:Bitmap, type:EntityType, name:String) 
 		{
 			if (self != this) 
 			{
 				throw IllegalOperationError("Abstract type!");
 			}
-			this.posY = posY;
-			this.posX = posX;
 			id = ids;
 			ids++;
 			this.texture = texture;
 			addChild(this.texture);
 		}
+		
+		
+		
 		public function getType():EntityType 
 		{
-			throw IllegalOperationError("Method getType must be overriden");
-			return null;
+			return type;
 		}
 		public function getName():String 
 		{
@@ -110,7 +108,7 @@ package com.kapelushStudios.MazeMaster.entities
 		}
 		public function clone():Entity
 		{
-			return new Entity(this, texture, type, name, posX, posY);
+			return new Entity(this, texture, type, name);
 		}
 		public function getTexture():Bitmap
 		{

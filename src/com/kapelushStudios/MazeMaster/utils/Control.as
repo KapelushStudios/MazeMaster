@@ -1,5 +1,7 @@
 package com.kapelushStudios.MazeMaster.utils
 {
+	import com.kapelushStudios.MazeMaster.map.Maze;
+	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.ui.*;
@@ -17,6 +19,7 @@ package com.kapelushStudios.MazeMaster.utils
 		private var left:Boolean
 		private var space:Boolean;;
 		private var idleCallback:Function;
+		private var refreshID:int;
 		
 		/**
 		 *
@@ -26,22 +29,9 @@ package com.kapelushStudios.MazeMaster.utils
 		{
 			this.idleCallback = idleCallback;
 			this.callback = callback;
-			if (stage){
-			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-			addEventListener(Event.ENTER_FRAME, enterFrame);
-			}
-			else {
-				addEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			}
-		}
-		
-		private function addedToStage(e:Event):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-			addEventListener(Event.ENTER_FRAME, enterFrame);
+			MazeMaster.addKeyDownCallback(keyDown);
+			MazeMaster.addKeyUpCallback(keyUp);
+			refreshID = Maze.getThread().sheduleRepeatingTask(enterFrame, 1);
 		}
 		
 		private function keyDown(e:KeyboardEvent):void
@@ -95,7 +85,7 @@ package com.kapelushStudios.MazeMaster.utils
 			}
 		}
 		
-		private function enterFrame(e:Event):void
+		private function enterFrame(e:Event = null):void
 		{
 			if (up)
 			{

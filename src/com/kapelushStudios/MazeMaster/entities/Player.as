@@ -35,14 +35,14 @@ package com.kapelushStudios.MazeMaster.entities
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
-		private var noCollision:Boolean = false;
+		private var noCollision:Boolean = true;
 		
 		public function Player()
 		{
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
 			state3 = Texture.getPlayer(3);
-			super(this, state3, EntityType.PLAYER, "Player", 1, 1);
+			super(this, state3, EntityType.PLAYER, "Player");
 			control = new Control(action, idle);
 			addChild(control);
 			upcorner = new Point();
@@ -100,11 +100,6 @@ package com.kapelushStudios.MazeMaster.entities
 			return 5;
 		}
 		
-		override public function getType():EntityType
-		{
-			return EntityType.PLAYER;
-		}
-		
 		override protected function killEntity():void
 		{
 			super.killEntity();
@@ -112,7 +107,6 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function action(dir:String):void
 		{
-			trace(Math.round(x / 16), ":", Math.round(y / 16))
 			if (Maze.getThread().getTask(moveID).isPaused())
 			{
 				Maze.getThread().getTask(moveID).setPaused(false);
@@ -199,7 +193,7 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		override public function getSpeed():Number
 		{
-			return 1;
+			return 5;
 		}
 		
 		public function setMoveCallback(method:Function):void

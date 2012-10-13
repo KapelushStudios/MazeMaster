@@ -6,7 +6,7 @@ package com.kapelushStudios.MazeMaster.entities
 	 * ...
 	 * @author Piotr Brzozowski
 	 */
-	public class Enemy extends EntityHostile 
+	public class Enemy extends EntityAI
 	{
 		private var tempX:int;
 		private var tempY:int;
@@ -19,12 +19,9 @@ package com.kapelushStudios.MazeMaster.entities
 			
 			speed = 0.5;
 			
-			// TODO: Get it to work
-			
 			searchID = Maze.getThread().sheduleRepeatingTask(searchPlayer, 50);
 			walkID = Maze.getThread().sheduleRepeatingTask(walkToPlayer, 1);
 			Maze.getThread().getTask(walkID).setPaused(true);
-			
 		}
 		
 		public function searchPlayer():void 

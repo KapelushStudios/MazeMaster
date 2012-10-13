@@ -9,6 +9,7 @@ package com.kapelushStudios.MazeMaster.states
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.system.fscommand;
 	import flash.ui.Keyboard;
 	
 	/**
@@ -18,7 +19,7 @@ package com.kapelushStudios.MazeMaster.states
 	public class GameState extends Sprite 
 	{
 		private var mazeMaster:Maze;
-		private var multiplier:int = 6;
+		private var multiplier:int = 1;
 		private var overlay:Bitmap;
 		
 		public function GameState() 
@@ -29,30 +30,22 @@ package com.kapelushStudios.MazeMaster.states
 			mazeMaster.height *= multiplier;
 			setPosition(Maze.getPlayer());
 			overlay = Texture.getOverlay();
+			//overlay.width = 800;
+			//overlay.height = 600;
 			overlay.width *= multiplier;
 			overlay.height *= multiplier;
 			overlay.x = -2000;
 			overlay.y = -1500;
-			addChild(overlay);
+			//addChild(overlay);
 			Maze.getPlayer().setMoveCallback(setPosition);
-			if (stage){
-				stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
-			}
-			else {
-				addEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			}
+			MazeMaster.addKeyDownCallback(keyDown);
 		}
 		
-		private function addedToStage(e:Event):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
-		}
-		
-		private function stage_keyDown(e:KeyboardEvent):void 
+		private function keyDown(e:KeyboardEvent):void 
 		{
 			if (e.keyCode == Keyboard.ESCAPE) {
 				MazeMaster.getInstance().setState(State.MENU);
+				fscommand("fullscreen", "true");
 			}
 		}
 		public function setPosition(player:Player):void

@@ -23,7 +23,7 @@ package com.kapelushStudios.MazeMaster.utils
 		public function State(type:String) 
 		{
 			if (_enumCreated)
-				throw new Error("Enum already created!");
+				throw new Error("ENUM already created!");
 			this.type = type;
 		}
 		

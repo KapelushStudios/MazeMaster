@@ -1,29 +1,78 @@
-package com.kapelushStudios.MazeMaster.entities
+package com.kapelushStudios.MazeMaster.entities 
 {
 	import com.kapelushStudios.MazeMaster.map.Maze;
 	import flash.display.Bitmap;
+	import flash.geom.Point;
 	/**
 	 * ...
-	 * @author Piotr Brzozowski
+	 * @author matiki1231
 	 */
-	public class EntityHostile extends Entity
+	public class EntityHostile extends Entity 
 	{
-		protected var pathfind:Pathfinding;
-		protected var path:Path;
-		public function EntityHostile(self:EntityHostile, texture1:Bitmap, name1:String) 
+		private var sightRange:Number = 5;
+		private var pointDir:Point = new Point();
+		private var walkID:int;
+		
+		public function EntityHostile(self:Entity ,texture:Bitmap, type:EntityType, name:String) 
 		{
-			super(self, texture1, EntityType.ENEMY, name1, Math.round(14 * Math.random())+1, Math.round(14 * Math.random())+1);
-			pathfind = new Pathfinding(Maze.getMap().getArray());
+			super(self, texture, type, name);
+			speed = 10;
+			walkID = Maze.getThread().sheduleRepeatingTask(entityPath, 2);
 		}
 		
-		public function findPath():void
-		{
-			pathfind.findPath(Math.round(this.x / 16), Math.round(this.y / 16), Math.round(Maze.getPlayer().x / 16), Math.round(Maze.getPlayer().y / 16), path);
+		
+		/**
+		 * Finds path for EntityHostile and checks collisions. Also manages random movements while player not in range.
+		 */
+		public function entityPath():void {
+			if (Math.sqrt(Math.pow(Math.abs(x - Maze.getPlayer().x), 2) + Math.pow(Math.abs(y - Maze.getPlayer().y), 2)) <= sightRange * 16) {
+				
+			} else {
+				var dir:int = 0;//Math.round(Math.random() * 10000) % 4;
+				switch (dir) 
+				{
+					case 0:
+						pointDir.x = x;
+						pointDir.y = y - 16;
+						if (!Maze.getMap().getBlockAt(pointDir).walkable && (y % 16) == 0) {
+							
+						} else {
+							y -= speed;
+						}
+					break;
+					case 1:
+						pointDir.x = x + 16;
+						pointDir.y = y;
+						if (!Maze.getMap().getBlockAt(pointDir).walkable && (x % 16) == 0) {
+							
+						} else {
+							x += speed;
+						}					
+					break;
+					case 2:
+						pointDir.x = x;
+						pointDir.y = y + 16;
+						if (!Maze.getMap().getBlockAt(pointDir).walkable && (y % 16) == 0) {
+							
+						} else {
+							y += speed;
+						}					
+					break;
+					case 3:
+						pointDir.x = x - 16;
+						pointDir.y = y;
+						if (!Maze.getMap().getBlockAt(pointDir).walkable && (y % 16) == 0) {
+							
+						} else {
+							x -= speed;
+						}					
+					break;
+				}
+			}
 		}
 		
-		public function getPath():Path
-		{
-			return path;
+		public function followPlayer():void {
+			
 		}
 		
 	}

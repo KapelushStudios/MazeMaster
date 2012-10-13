@@ -8,6 +8,7 @@ package com.kapelushStudios.MazeMaster.entities
 	{
 		public static const PLAYER:EntityType = new EntityType("player");
 		public static const ENEMY:EntityType = new EntityType("enemy");
+		public static const BAT:EntityType = new EntityType("bat");
 		
 		private static var _enumCreated:Boolean = false;
 		
