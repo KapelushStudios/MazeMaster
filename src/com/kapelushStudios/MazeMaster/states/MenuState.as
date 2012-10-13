@@ -48,8 +48,17 @@ package com.kapelushStudios.MazeMaster.states
 			addChild(exitButton);
 			
 			startButton.addEventListener(MouseEvent.CLICK, startButton_click);
+			startButton.addEventListener(MouseEvent.ROLL_OVER, rollOver);
 			
 			exitButton.addEventListener(MouseEvent.CLICK, exitButton_click);
+			exitButton.addEventListener(MouseEvent.ROLL_OVER, rollOver);
+			
+			optionsButton.addEventListener(MouseEvent.ROLL_OVER, rollOver);
+		}
+		
+		private function rollOver(e:MouseEvent):void 
+		{
+			(Animation)((SimpleButton)(e.target).overState).play();
 		}
 		
 		private function exitButton_click(e:MouseEvent):void 

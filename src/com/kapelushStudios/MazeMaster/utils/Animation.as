@@ -1,9 +1,10 @@
-package com.kapelushStudios.MazeMaster.utils 
+package com.kapelushStudios.MazeMaster.utils
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	
 	/**
 	 * ...
 	 * @author Piotr Brzozowski
@@ -15,32 +16,43 @@ package com.kapelushStudios.MazeMaster.utils
 		private var texture:Bitmap;
 		private var maska:Bitmap;
 		private var frameNumber:int;
+		private var frameWidth:int;
+		private var repeatOnce:Boolean;
 		
-		public function Animation(texture:Bitmap, speed:int, frameNumber:int) 
+		public function Animation(texture:Bitmap, speed:int, frameNumber:int, frameWidth:int, frameHeight:int, repeatOnce:Boolean)
 		{
+			this.repeatOnce = repeatOnce;
+			this.frameWidth = frameWidth;
 			this.frameNumber = frameNumber;
 			this.texture = texture;
 			this.speed = speed;
 			addChild(this.texture);
-			maska = new Bitmap(new BitmapData(16, 16, false, 0));
+			maska = new Bitmap(new BitmapData(frameWidth, frameHeight, false));
+			addChild(maska);
 			this.texture.mask = maska;
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			addFrameScript(1, frame1);
-			play();
+			//addFrameScript(1, frame1);
+			//play();
 		}
 		
-		private function frame1():void 
+		private function frame1():void
 		{
 			gotoAndPlay(0);
 		}
 		
-		private function enterFrame(e:Event):void 
+		private function enterFrame(e:Event):void
 		{
 			i++;
-			if (i == speed) {
+			if (i == speed)
+			{
 				i = 0;
-				texture.x -= 16;
-				if (Math.abs(texture.x / 16) == frameNumber) {
+				texture.x -= frameWidth;
+				if (Math.abs(texture.x / frameWidth) == frameNumber)
+				{
+					if (repeatOnce)
+					{
+						stop();
+					}
 					texture.x = 0;
 				}
 			}
@@ -51,6 +63,21 @@ package com.kapelushStudios.MazeMaster.utils
 			removeChild(this.texture);
 			this.texture = texture;
 			addChild(this.texture);
+		}
+	
+		override public function play():void 
+		{
+			super.play();
+			addEventListener(Event.ENTER_FRAME, enterFrame);
+			texture.x = 0;
+		}
+		
+		override public function stop():void 
+		{
+			super.stop();
+			gotoAndStop(0);
+			removeEventListener(Event.ENTER_FRAME, enterFrame);
+			texture.x = 0;
 		}
 		
 	}
