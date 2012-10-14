@@ -160,8 +160,8 @@ package com.kapelushStudios.MazeMaster.map
 		 */
 		public function getBlockAt(corner:Object):Block
 		{
-			tempX = Math.round(corner.x / 16);
-			tempY = Math.round(corner.y / 16);
+			tempX = (int)(corner.x / 16);
+			tempY = (int)(corner.y / 16);
 			return BlockList.getBlockToTest(map[tempY][tempX]);
 		}
 		

@@ -16,16 +16,16 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2012-10-13'</value>
+      <value>'2012-10-14'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Documents and Settings\Piotrek\Moje dokumenty\GitHub\MazeMaster\src</path-element>
-      <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>C:\Users\Mati\Desktop\MM - repo\Backup\MazeMaster\src</path-element>
+      <path-element>D:\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Documents and Settings\Piotrek\Moje dokumenty\GitHub\MazeMaster\src\com\kapelushStudios\MazeMaster\MazeMaster.as</path-element>
+    <path-element>C:\Users\Mati\Desktop\MM - repo\Backup\MazeMaster\src\com\kapelushStudios\MazeMaster\MazeMaster.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>50</default-frame-rate>

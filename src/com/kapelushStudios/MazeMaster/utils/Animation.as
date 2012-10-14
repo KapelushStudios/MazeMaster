@@ -11,15 +11,15 @@ package com.kapelushStudios.MazeMaster.utils
 	 */
 	public class Animation extends MovieClip
 	{
-		private var speed:int = 1;
-		private var i:int = 0;
+		private var speed:Number = 1;
+		private var i:Number = 0;
 		private var texture:Bitmap;
 		private var maska:Bitmap;
 		private var frameNumber:int;
 		private var frameWidth:int;
 		private var repeatOnce:Boolean;
 		
-		public function Animation(texture:Bitmap, speed:int, frameNumber:int, frameWidth:int, frameHeight:int, repeatOnce:Boolean)
+		public function Animation(texture:Bitmap, speed:Number, frameNumber:int, frameWidth:int, frameHeight:int, repeatOnce:Boolean)
 		{
 			this.repeatOnce = repeatOnce;
 			this.frameWidth = frameWidth;

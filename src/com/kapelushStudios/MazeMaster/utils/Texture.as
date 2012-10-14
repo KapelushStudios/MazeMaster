@@ -138,7 +138,7 @@ package com.kapelushStudios.MazeMaster.utils
 								}
 							}
 						}
-						return getAnimation(textura, 0, 0, 32, 32, 9, 8);
+						return getAnimation(textura, 0, 0, 32, 32, 9, 1);
 					}
 					else if (state == 2)
 					{
@@ -188,7 +188,7 @@ package com.kapelushStudios.MazeMaster.utils
 								}
 							}
 						}
-						return getAnimation(textura, 0, 0, 80, 32, 16, 8);
+						return getAnimation(textura, 0, 0, 80, 32, 16, 1);
 					}
 					else if (state == 2)
 					{
@@ -238,7 +238,7 @@ package com.kapelushStudios.MazeMaster.utils
 								}
 							}
 						}
-						return getAnimation(textura, 0, 0, 32, 32, 9, 8);
+						return getAnimation(textura, 0, 0, 32, 32, 9, 1);
 					}
 					else if (state == 2)
 					{
@@ -283,7 +283,7 @@ package com.kapelushStudios.MazeMaster.utils
 			return textura;
 		}
 		
-		public static function getAnimation(textures:Bitmap, x:int, y:int, width:int, height:int, frameNum:int, speed:int, repeatOnce:Boolean = true):Animation
+		public static function getAnimation(textures:Bitmap, x:int, y:int, width:int, height:int, frameNum:int, speed:Number, repeatOnce:Boolean = true):Animation
 		{
 			var result:Bitmap = new Bitmap(new BitmapData(width * frameNum, height, true, 0));
 			result.bitmapData.copyPixels(textures.bitmapData, new Rectangle(x, y, width * frameNum, height), new Point(0, 0));
