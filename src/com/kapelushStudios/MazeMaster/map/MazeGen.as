@@ -175,7 +175,7 @@ package com.kapelushStudios.MazeMaster.map
 				}				
 			}
 			
-			return blockFilter(21 * 4, 21 * 4, 0, 2, 10, enlargeArray(thick, size, size, result))
+			return blockFilter(size * thick, size * thick, 0, 2, 10, enlargeArray(thick, size, size, result))
 		}
 		
 		/**

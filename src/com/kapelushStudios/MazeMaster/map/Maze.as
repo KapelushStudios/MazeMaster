@@ -35,7 +35,7 @@ package com.kapelushStudios.MazeMaster.map
 			instance = this;
 			thread = new Thread();
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			map = new Map(MazeGen.generateMaze(201, 3));
+			map = new Map(MazeGen.generateMaze(21, 3));
 			player = new Player();
 			player.x = 16 * MazeGen.thick;
 			player.y = (16 * MazeGen.thick) - 8;
