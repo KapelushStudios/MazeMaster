@@ -35,7 +35,7 @@ package com.kapelushStudios.MazeMaster.entities
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
-		private var noCollision:Boolean = true;
+		private var Collisions:Boolean = false;
 		private var xDir:int;
 		private var yDir:int;
 		private var pointDir0:Point = new Point();
@@ -117,71 +117,35 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "up")
 			{
-				y -= checkWalkable(0);
-				//this.y -= getSpeed();
-				//if (!noCollision)
-				//{
-					//upcorner.x = this.x - 8;
-					//upcorner.y = this.y;
-					//upcorner1.x = this.x + 7;
-					//upcorner1.y = upcorner.y;
-					//if (world.collideWith(upcorner) || world.collideWith(upcorner1))
-					//{
-						//this.y += getSpeed();
-					//}
-				//}
-				//world.getBlockAt(upcorner).onEntityWalked(this);
+				if (Collisions) {
+					y -= checkWalkable(0);
+				} else {
+					y -= getSpeed();
+				}
 			}
 			if (dir == "down")
 			{
-				y += checkWalkable(2);
-				//this.y += getSpeed();
-				//if (!noCollision)
-				//{
-					//downcorner.x = this.x - 8;
-					//downcorner.y = this.y + 16;
-					//downcorner1.x = this.x + 7;
-					//downcorner1.y = downcorner.y;
-					//if (world.collideWith(downcorner) || world.collideWith(downcorner1))
-					//{
-						//this.y -= getSpeed();
-					//}
-				//}
-				//world.getBlockAt(downcorner).onEntityWalked(this);
+				if (Collisions) {
+					y += checkWalkable(2);
+				} else {
+					y += getSpeed();
+				}
 			}
 			if (dir == "left")
 			{
-				x -= checkWalkable(3);
-				//this.x -= getSpeed();
-				//if (!noCollision)
-				//{
-					//leftcorner.x = this.x - 8;
-					//leftcorner.y = this.y + 15;
-					//leftcorner1.x = leftcorner.x;
-					//leftcorner1.y = this.y + 1;
-					//if (world.collideWith(leftcorner) || world.collideWith(leftcorner1))
-					//{
-						//this.x += getSpeed();
-					//}
-				//}
-				//world.getBlockAt(leftcorner).onEntityWalked(this);
+				if (Collisions) {
+					x -= checkWalkable(3);
+				} else {
+					x -= getSpeed();
+				}
 			}
 			if (dir == "right")
 			{
-				x += checkWalkable(1);
-				//this.x += getSpeed();
-				//if (!noCollision)
-				//{
-					//rightcorner.x = 7 + this.x;
-					//rightcorner.y = this.y + 1;
-					//rightcorner1.x = rightcorner.x;
-					//rightcorner1.y = this.y + 15;
-					//if (world.collideWith(rightcorner) || world.collideWith(rightcorner1))
-					//{
-						//this.x -= getSpeed();
-					//}
-				//}
-				//world.getBlockAt(rightcorner).onEntityWalked(this);
+				if (Collisions) {
+					x += checkWalkable(1);
+				} else {
+					x += getSpeed();
+				}
 			}
 			if (moveCallback != null)
 			{
