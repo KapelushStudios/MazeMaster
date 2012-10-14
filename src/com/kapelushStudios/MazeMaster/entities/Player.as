@@ -36,6 +36,10 @@ package com.kapelushStudios.MazeMaster.entities
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
 		private var noCollision:Boolean = true;
+		private var xDir:int;
+		private var yDir:int;
+		private var pointDir0:Point = new Point();
+		private var pointDir1:Point = new Point();
 		
 		public function Player()
 		{
@@ -113,72 +117,140 @@ package com.kapelushStudios.MazeMaster.entities
 			}
 			if (dir == "up")
 			{
-				this.y -= getSpeed();
-				if (!noCollision)
-				{
-					upcorner.x = this.x - 8;
-					upcorner.y = this.y;
-					upcorner1.x = this.x + 7;
-					upcorner1.y = upcorner.y;
-					if (world.collideWith(upcorner) || world.collideWith(upcorner1))
-					{
-						this.y += getSpeed();
-					}
-				}
-				world.getBlockAt(upcorner).onEntityWalked(this);
+				y -= checkWalkable(0);
+				//this.y -= getSpeed();
+				//if (!noCollision)
+				//{
+					//upcorner.x = this.x - 8;
+					//upcorner.y = this.y;
+					//upcorner1.x = this.x + 7;
+					//upcorner1.y = upcorner.y;
+					//if (world.collideWith(upcorner) || world.collideWith(upcorner1))
+					//{
+						//this.y += getSpeed();
+					//}
+				//}
+				//world.getBlockAt(upcorner).onEntityWalked(this);
 			}
 			if (dir == "down")
 			{
-				this.y += getSpeed();
-				if (!noCollision)
-				{
-					downcorner.x = this.x - 8;
-					downcorner.y = this.y + 16;
-					downcorner1.x = this.x + 7;
-					downcorner1.y = downcorner.y;
-					if (world.collideWith(downcorner) || world.collideWith(downcorner1))
-					{
-						this.y -= getSpeed();
-					}
-				}
-				world.getBlockAt(downcorner).onEntityWalked(this);
+				y += checkWalkable(2);
+				//this.y += getSpeed();
+				//if (!noCollision)
+				//{
+					//downcorner.x = this.x - 8;
+					//downcorner.y = this.y + 16;
+					//downcorner1.x = this.x + 7;
+					//downcorner1.y = downcorner.y;
+					//if (world.collideWith(downcorner) || world.collideWith(downcorner1))
+					//{
+						//this.y -= getSpeed();
+					//}
+				//}
+				//world.getBlockAt(downcorner).onEntityWalked(this);
 			}
 			if (dir == "left")
 			{
-				this.x -= getSpeed();
-				if (!noCollision)
-				{
-					leftcorner.x = this.x - 8;
-					leftcorner.y = this.y + 15;
-					leftcorner1.x = leftcorner.x;
-					leftcorner1.y = this.y + 1;
-					if (world.collideWith(leftcorner) || world.collideWith(leftcorner1))
-					{
-						this.x += getSpeed();
-					}
-				}
-				world.getBlockAt(leftcorner).onEntityWalked(this);
+				x -= checkWalkable(3);
+				//this.x -= getSpeed();
+				//if (!noCollision)
+				//{
+					//leftcorner.x = this.x - 8;
+					//leftcorner.y = this.y + 15;
+					//leftcorner1.x = leftcorner.x;
+					//leftcorner1.y = this.y + 1;
+					//if (world.collideWith(leftcorner) || world.collideWith(leftcorner1))
+					//{
+						//this.x += getSpeed();
+					//}
+				//}
+				//world.getBlockAt(leftcorner).onEntityWalked(this);
 			}
 			if (dir == "right")
 			{
-				this.x += getSpeed();
-				if (!noCollision)
-				{
-					rightcorner.x = 7 + this.x;
-					rightcorner.y = this.y + 1;
-					rightcorner1.x = rightcorner.x;
-					rightcorner1.y = this.y + 15;
-					if (world.collideWith(rightcorner) || world.collideWith(rightcorner1))
-					{
-						this.x -= getSpeed();
-					}
-				}
-				world.getBlockAt(rightcorner).onEntityWalked(this);
+				x += checkWalkable(1);
+				//this.x += getSpeed();
+				//if (!noCollision)
+				//{
+					//rightcorner.x = 7 + this.x;
+					//rightcorner.y = this.y + 1;
+					//rightcorner1.x = rightcorner.x;
+					//rightcorner1.y = this.y + 15;
+					//if (world.collideWith(rightcorner) || world.collideWith(rightcorner1))
+					//{
+						//this.x -= getSpeed();
+					//}
+				//}
+				//world.getBlockAt(rightcorner).onEntityWalked(this);
 			}
 			if (moveCallback != null)
 			{
 				moveCallback(this);
 			}
+		}
+		
+		/**
+		 * Checks collisions with certain speed and direction. 0 - up 1 - right 2 - down 3 - left
+		 */
+		public function checkWalkable(dir:int):Number {
+			
+			switch (dir) 
+			{
+				case 0:
+					pointDir0.x = x;
+					pointDir0.y = y - getSpeed() + 8;
+					pointDir1.x = x + 16;
+					pointDir1.y = y - getSpeed() + 8;
+					if (Maze.getMap().getBlockAt(pointDir0).walkable && (((x % 16) == 0) || Maze.getMap().getBlockAt(pointDir1).walkable)) {
+						return getSpeed();
+						
+					} else {
+						
+						return (y + 8) % 16;
+					}
+				break;
+				case 1:
+					pointDir0.x = x + 15 + getSpeed();
+					pointDir0.y = y + 8;
+					pointDir1.x = x + 15 + getSpeed();
+					pointDir1.y = y + 16 + 8;
+					if (Maze.getMap().getBlockAt(pointDir0).walkable && ((((y + 8) % 16) == 0) || Maze.getMap().getBlockAt(pointDir1).walkable)) {
+						return getSpeed();
+						
+					} else {
+						
+						return 15 -((x + 15) % 16);
+					}
+				break;
+				case 2:
+					pointDir0.x = x;
+					pointDir0.y = y + 15 + getSpeed() + 8;
+					pointDir1.x = x + 16;
+					pointDir1.y = y + 15 + getSpeed() + 8;
+					if (Maze.getMap().getBlockAt(pointDir0).walkable && (((x % 16) == 0) || Maze.getMap().getBlockAt(pointDir1).walkable)) {
+						return getSpeed();
+						
+					} else {
+						
+						return 15 - ((y + 15 + 8) % 16);
+					}
+				break;
+				case 3:
+					pointDir0.x = x - getSpeed();
+					pointDir0.y = y + 8;
+					pointDir1.x = x - getSpeed();
+					pointDir1.y = y + 16 + 8;
+					if (Maze.getMap().getBlockAt(pointDir0).walkable && ((((y + 8) % 16) == 0) || Maze.getMap().getBlockAt(pointDir1).walkable)) {
+						return getSpeed();
+						
+					} else {
+						
+						return x % 16;
+					}
+				break;
+			}
+			
+			return 0;
 		}
 		
 		public function getMaxMana():int

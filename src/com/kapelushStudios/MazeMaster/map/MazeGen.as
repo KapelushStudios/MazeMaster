@@ -8,6 +8,9 @@ package com.kapelushStudios.MazeMaster.map
 	{
 		static public var thick:int;
 		
+		/**
+		 * Returns Array with generated Maze of certain size and multiplier
+		 */
 		public static function generateMaze(size:int, thick:int):Array
 		{
 			MazeGen.thick = thick;
@@ -175,6 +178,9 @@ package com.kapelushStudios.MazeMaster.map
 			return blockFilter(21 * 4, 21 * 4, 0, 2, 10, enlargeArray(thick, size, size, result))
 		}
 		
+		/**
+		 * Returns false if on certain coordinates in certain Array there is 1 or true when 0.
+		 */
 		private static function searchArray(coordinates:Array, myArray:Array):Boolean 
 		{
 			var Xcor:int = coordinates[ 0 ]
@@ -187,6 +193,9 @@ package com.kapelushStudios.MazeMaster.map
 			return true
 		}
 		
+		/**
+		 * Multiplies certain Array by certain multiplier.
+		 */
 		private static function enlargeArray(enSize:int, enSizeX:int, enSizeY:int, enArray:Array):Array
 		{
 			var enResult:Array = new Array();
@@ -213,6 +222,9 @@ package com.kapelushStudios.MazeMaster.map
 			return enResult
 		}
 		
+		/**
+		 * Searches for certain blocks in certain Array and changes then to another certain block.
+		 */
 		private static function blockFilter(filterX:int, filterY:int, blockID:int, filterID:int, filterChance:int, filterArray:Array):Array
 		{
 			for (var i:int = 0; i < filterY; i++) 
