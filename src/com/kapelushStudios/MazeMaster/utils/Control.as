@@ -20,6 +20,7 @@ package com.kapelushStudios.MazeMaster.utils
 		private var space:Boolean;;
 		private var idleCallback:Function;
 		private var refreshID:int;
+		private var shift:Boolean;
 		
 		/**
 		 *
@@ -56,6 +57,7 @@ package com.kapelushStudios.MazeMaster.utils
 			{
 				space = true;
 			}
+			shift = e.shiftKey;
 		}
 		
 		private function keyUp(e:KeyboardEvent):void
@@ -83,6 +85,7 @@ package com.kapelushStudios.MazeMaster.utils
 			if (!up && !down && !left && !right) {
 				idleCallback();
 			}
+			shift = e.shiftKey;
 		}
 		
 		private function enterFrame(e:Event = null):void
@@ -106,6 +109,14 @@ package com.kapelushStudios.MazeMaster.utils
 			if (space)
 			{
 				callback("space");
+			}
+			if (shift)
+			{
+				callback("sprint");
+			}
+			if (!shift)
+			{
+				callback("no sprint");
 			}
 		}
 	

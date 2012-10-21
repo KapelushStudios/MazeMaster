@@ -35,14 +35,16 @@ package com.kapelushStudios.MazeMaster.entities
 		private var rect:Rectangle = new Rectangle(0, 0, 16, 16);
 		private var actualTex:int = 0;
 		private var moveCallback:Function;
-		private var Collisions:Boolean = false;
+		private var collisions:Boolean = true;
 		private var xDir:int;
 		private var yDir:int;
 		private var pointDir0:Point = new Point();
 		private var pointDir1:Point = new Point();
+		private var sprint:Boolean;
 		
 		public function Player()
 		{
+			//speed = 2;
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
 			state3 = Texture.getPlayer(3);
@@ -104,44 +106,50 @@ package com.kapelushStudios.MazeMaster.entities
 			return 5;
 		}
 		
-		override protected function killEntity():void
-		{
-			super.killEntity();
-		}
+		//override protected function killEntity():void
+		//{
+			//super.killEntity();
+		//}
 		
-		public function action(dir:String):void
+		public function action(actionName:String):void
 		{
-			if (Maze.getThread().getTask(moveID).isPaused())
+			if (Maze.getThread().getTask(moveID).isPaused() && actionName != "sprint" && actionName != "no sprint")
 			{
 				Maze.getThread().getTask(moveID).setPaused(false);
 			}
-			if (dir == "up")
+			if (actionName == "sprint") {
+				sprint = true;
+			}
+			if (actionName == "no sprint") {
+				sprint = false;
+			}
+			if (actionName == "up")
 			{
-				if (Collisions) {
+				if (collisions) {
 					y -= checkWalkable(0);
 				} else {
 					y -= getSpeed();
 				}
 			}
-			if (dir == "down")
+			if (actionName == "down")
 			{
-				if (Collisions) {
+				if (collisions) {
 					y += checkWalkable(2);
 				} else {
 					y += getSpeed();
 				}
 			}
-			if (dir == "left")
+			if (actionName == "left")
 			{
-				if (Collisions) {
+				if (collisions) {
 					x -= checkWalkable(3);
 				} else {
 					x -= getSpeed();
 				}
 			}
-			if (dir == "right")
+			if (actionName == "right")
 			{
-				if (Collisions) {
+				if (collisions) {
 					x += checkWalkable(1);
 				} else {
 					x += getSpeed();
@@ -229,7 +237,11 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		override public function getSpeed():Number
 		{
-			return 5;
+			if (sprint)
+				return 2 * 1.5;
+			
+			else
+				return 2;
 		}
 		
 		public function setMoveCallback(method:Function):void
