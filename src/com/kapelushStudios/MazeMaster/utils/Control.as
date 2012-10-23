@@ -1,5 +1,6 @@
 package com.kapelushStudios.MazeMaster.utils
 {
+	import com.kapelushStudios.MazeMaster.entities.Action;
 	import com.kapelushStudios.MazeMaster.map.Maze;
 	import com.kapelushStudios.MazeMaster.MazeMaster;
 	import flash.display.*;
@@ -92,31 +93,31 @@ package com.kapelushStudios.MazeMaster.utils
 		{
 			if (up)
 			{
-				callback("up");
+				callback(Action.UP);
 			}
 			if (down)
 			{
-				callback("down");
+				callback(Action.DOWN);
 			}
 			if (right)
 			{
-				callback("right");
+				callback(Action.RIGHT);
 			}
 			if (left)
 			{
-				callback("left");
+				callback(Action.LEFT);
 			}
 			if (space)
 			{
-				callback("space");
+				callback(Action.JUMP);
 			}
 			if (shift)
 			{
-				callback("sprint");
+				callback(Action.SPRINT);
 			}
 			if (!shift)
 			{
-				callback("no sprint");
+				callback(Action.NO_SPRINT);
 			}
 		}
 	

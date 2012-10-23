@@ -19,14 +19,6 @@ package com.kapelushStudios.MazeMaster.entities
 		private var control:Control;
 		private var mana:Number;
 		private var inventory:Inventory;
-		private var upcorner:Point;
-		private var upcorner1:Point;
-		private var downcorner:Point;
-		private var downcorner1:Point;
-		private var leftcorner:Point;
-		private var leftcorner1:Point;
-		private var rightcorner:Point;
-		private var rightcorner1:Point;
 		private var world:Map;
 		private var moveID:int;
 		private var state1:Bitmap;
@@ -44,21 +36,12 @@ package com.kapelushStudios.MazeMaster.entities
 		
 		public function Player()
 		{
-			//speed = 2;
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
 			state3 = Texture.getPlayer(3);
 			super(this, state3, EntityType.PLAYER, "Player");
 			control = new Control(action, idle);
 			addChild(control);
-			upcorner = new Point();
-			upcorner1 = new Point();
-			downcorner = new Point();
-			downcorner1 = new Point();
-			leftcorner = new Point();
-			leftcorner1 = new Point();
-			rightcorner = new Point();
-			rightcorner1 = new Point();
 			world = Maze.getMap();
 			moveID = Maze.getThread().sheduleRepeatingTask(walkState, 7);
 			Maze.getThread().getTask(moveID).setPaused(true);
@@ -106,24 +89,19 @@ package com.kapelushStudios.MazeMaster.entities
 			return 5;
 		}
 		
-		//override protected function killEntity():void
-		//{
-			//super.killEntity();
-		//}
-		
-		public function action(actionName:String):void
+		public function action(actionName:Action):void
 		{
-			if (Maze.getThread().getTask(moveID).isPaused() && actionName != "sprint" && actionName != "no sprint")
+			if (Maze.getThread().getTask(moveID).isPaused() && actionName != Action.SPRINT && actionName != Action.NO_SPRINT)
 			{
 				Maze.getThread().getTask(moveID).setPaused(false);
 			}
-			if (actionName == "sprint") {
+			if (actionName == Action.SPRINT) {
 				sprint = true;
 			}
-			if (actionName == "no sprint") {
+			if (actionName == Action.NO_SPRINT) {
 				sprint = false;
 			}
-			if (actionName == "up")
+			if (actionName == Action.UP)
 			{
 				if (collisions) {
 					y -= checkWalkable(0);
@@ -131,7 +109,7 @@ package com.kapelushStudios.MazeMaster.entities
 					y -= getSpeed();
 				}
 			}
-			if (actionName == "down")
+			if (actionName == Action.DOWN)
 			{
 				if (collisions) {
 					y += checkWalkable(2);
@@ -139,7 +117,7 @@ package com.kapelushStudios.MazeMaster.entities
 					y += getSpeed();
 				}
 			}
-			if (actionName == "left")
+			if (actionName == Action.LEFT)
 			{
 				if (collisions) {
 					x -= checkWalkable(3);
@@ -147,7 +125,7 @@ package com.kapelushStudios.MazeMaster.entities
 					x -= getSpeed();
 				}
 			}
-			if (actionName == "right")
+			if (actionName == Action.RIGHT)
 			{
 				if (collisions) {
 					x += checkWalkable(1);
