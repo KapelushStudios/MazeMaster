@@ -33,6 +33,24 @@ package com.kapelushStudios.MazeMaster.particles
 			this.rotation = direction;
 		}
 		
+		public function randomDirection():void
+		{
+			direction = (int)(Math.random() * 360);
+			this.rotation = direction;
+		}
+		
+		public function randomSpeed(min:Number, max:Number):void
+		{
+			velocity = (Math.random() * (max - min)) + min;
+		}
+		
+		public function randomSize(min:Number, max:Number):void
+		{
+			var size:Number = (Math.random() * (max - min)) + min;
+			this.width *= size;
+			this.height *= size;
+		}
+		
 		private function enterFrame(e:Event):void
 		{
 			age++;
@@ -44,11 +62,13 @@ package com.kapelushStudios.MazeMaster.particles
 			
 			velocity *= friction;
 			
-			var speedx:Number =Math.sin(this.rotation*(Math.PI/180))*2;
-			var speedy:Number = Math.cos(this.rotation*(Math.PI/180))*2*-1;
+			var speedx:Number =Math.sin(direction*(Math.PI/180))*2;
+			var speedy:Number = Math.cos(direction*(Math.PI/180))*2*-1;
 			
 			this.x += speedx * velocity;
 			this.y += speedy * velocity;
+			
+			this.alpha = 1 - (lifeLength / age);
 		}
 		
 		public function setDead(value:Boolean):void
@@ -74,12 +94,18 @@ package com.kapelushStudios.MazeMaster.particles
 		
 		public function setData(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number):void
 		{
-			this.friction = friction;
-			this.lifeLength = lifeLength;
-			this.velocity = velocity;
-			this.direction = direction;
-			this.texture = texture;
-			addChild(this.texture);
+			if (friction != null)
+				this.friction = friction;
+			if (lifeLength != null)
+				this.lifeLength = lifeLength;
+			if (velocity != null)
+				this.velocity = velocity;
+			if (direction != null)
+				this.direction = direction;
+			if (texture != null){
+				this.texture = texture;
+				addChild(this.texture);
+			}
 			setDead(false);
 		}
 		
@@ -88,7 +114,7 @@ package com.kapelushStudios.MazeMaster.particles
 			return dead;
 		}
 		
-		public static function addParticle(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number):Particle
+		public static function addParticle(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number = 1):Particle
 		{
 			if (particles == null) {
 				particles = new Vector.<Particle>();
@@ -104,7 +130,7 @@ package com.kapelushStudios.MazeMaster.particles
 						return particles[i];
 					}
 				}
-				return particles[particles.push(new Particle(texture, direction, velocity, lifeLength, friction:Number))];
+				return particles[particles.push(new Particle(texture, direction, velocity, lifeLength, friction))];
 			}
 		}
 	
