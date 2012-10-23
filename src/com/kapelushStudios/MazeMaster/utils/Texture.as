@@ -188,7 +188,7 @@ package com.kapelushStudios.MazeMaster.utils
 								}
 							}
 						}
-						return getAnimation(textura, 0, 0, 80, 32, 16, 1);
+						return getAnimation(textura, 0, 0, 80, 32, 17, 1);
 					}
 					else if (state == 2)
 					{

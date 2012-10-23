@@ -53,7 +53,9 @@ package com.kapelushStudios.MazeMaster.utils
 					{
 						stop();
 					}
-					texture.x = 0;
+					else {
+						texture.x = 0;
+					}
 				}
 			}
 		}
@@ -68,6 +70,7 @@ package com.kapelushStudios.MazeMaster.utils
 		override public function play():void 
 		{
 			super.play();
+			gotoAndPlay(0);
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 			texture.x = 0;
 		}
@@ -75,9 +78,7 @@ package com.kapelushStudios.MazeMaster.utils
 		override public function stop():void 
 		{
 			super.stop();
-			gotoAndStop(0);
 			removeEventListener(Event.ENTER_FRAME, enterFrame);
-			texture.x = 0;
 		}
 		
 	}
