@@ -13,24 +13,29 @@ package com.kapelushStudios.MazeMaster.particles
 	{
 		private var texture:DisplayObject;
 		private var direction:int;
-		private var velocity:Number;
+		private var speed:Number;
 		private var lifeLength:int;
 		private var dead:Boolean;
 		private var age:int = 0;
 		private static var availableParticles:int = 0;
 		private static var particles:Vector.<Particle>;
 		private var friction:Number;
+		private static var allowConstructor:Boolean = false;
 		
-		protected function Particle(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number)
+		public function Particle(texture:DisplayObject, direction:int, speed:Number, lifeLength:int, friction:Number)
 		{
+			if (!allowConstructor)
+				throw new Error("Cannot create particle! Use Particle.addParticle()");
+			
 			this.friction = friction;
 			this.lifeLength = lifeLength;
-			this.velocity = velocity;
+			this.speed = speed;
 			this.direction = direction;
 			this.texture = texture;
 			addEventListener(Event.ENTER_FRAME, enterFrame);
 			addChild(this.texture);
 			this.rotation = direction;
+			Particles.notifyState(this);
 		}
 		
 		public function randomDirection():void
@@ -41,14 +46,7 @@ package com.kapelushStudios.MazeMaster.particles
 		
 		public function randomSpeed(min:Number, max:Number):void
 		{
-			velocity = (Math.random() * (max - min)) + min;
-		}
-		
-		public function randomSize(min:Number, max:Number):void
-		{
-			var size:Number = (Math.random() * (max - min)) + min;
-			this.width *= size;
-			this.height *= size;
+			speed = (Math.random() * (max - min)) + min;
 		}
 		
 		private function enterFrame(e:Event):void
@@ -60,15 +58,15 @@ package com.kapelushStudios.MazeMaster.particles
 				return ;
 			}
 			
-			velocity *= friction;
+			speed *= friction;
 			
-			var speedx:Number =Math.sin(direction*(Math.PI/180))*2;
-			var speedy:Number = Math.cos(direction*(Math.PI/180))*2*-1;
+			var speedx:Number = Math.sin(direction * (Math.PI / 180)) * 2;
+			var speedy:Number = Math.cos(direction * (Math.PI / 180)) * 2 * -1;
 			
-			this.x += speedx * velocity;
-			this.y += speedy * velocity;
+			this.x += speedx * speed;
+			this.y += speedy * speed;
 			
-			this.alpha = 1 - (lifeLength / age);
+			this.alpha = 1 - (age / lifeLength);
 		}
 		
 		public function setDead(value:Boolean):void
@@ -92,15 +90,15 @@ package com.kapelushStudios.MazeMaster.particles
 			}
 		}
 		
-		public function setData(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number):void
+		public function setData(texture:DisplayObject = null, direction:int = -1, speed:Number = -1, lifeLength:int = -1, friction:Number = -1):void
 		{
-			if (friction != null)
+			if (friction != -1)
 				this.friction = friction;
-			if (lifeLength != null)
+			if (lifeLength != -1)
 				this.lifeLength = lifeLength;
-			if (velocity != null)
-				this.velocity = velocity;
-			if (direction != null)
+			if (speed != -1)
+				this.speed = speed;
+			if (direction != -1)
 				this.direction = direction;
 			if (texture != null){
 				this.texture = texture;
@@ -114,23 +112,30 @@ package com.kapelushStudios.MazeMaster.particles
 			return dead;
 		}
 		
-		public static function addParticle(texture:DisplayObject, direction:int, velocity:Number, lifeLength:int, friction:Number = 1):Particle
+		public static function addParticle(texture:DisplayObject, direction:int, speed:Number, lifeLength:int, friction:Number = 1):Particle
 		{
 			if (particles == null) {
 				particles = new Vector.<Particle>();
 			}
 			if (availableParticles == 0) {
-				return particles[particles.push(new Particle(texture, direction, velocity, lifeLength, friction:Number))];
+				allowConstructor = true;
+				var id:int = particles.push(new Particle(texture, direction, speed, lifeLength, friction));
+				//trace(particles.length);
+				allowConstructor = false;
+				return particles[id-1];
 			}
 			else {
 				for (var i:int = 0; i < particles.length; i++) 
 				{
 					if (particles[i].isDead()) {
-						particles[i].setData(texture, direction, velocity, lifeLength);
+						particles[i].setData(texture, direction, speed, lifeLength, friction);
 						return particles[i];
 					}
 				}
-				return particles[particles.push(new Particle(texture, direction, velocity, lifeLength, friction))];
+				allowConstructor = true;
+				return particles[particles.push(new Particle(texture, direction, speed, lifeLength, friction))];
+				allowConstructor = false;
+				//trace(particles.length);
 			}
 		}
 	

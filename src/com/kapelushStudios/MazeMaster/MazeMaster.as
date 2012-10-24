@@ -1,5 +1,7 @@
 package com.kapelushStudios.MazeMaster 
 {
+	import com.kapelushStudios.MazeMaster.particles.Particle;
+	import com.kapelushStudios.MazeMaster.particles.Particles;
 	import com.kapelushStudios.MazeMaster.states.GameState;
 	import com.kapelushStudios.MazeMaster.states.MenuState;
 	import com.kapelushStudios.MazeMaster.states.OptionsState;
@@ -28,22 +30,27 @@ package com.kapelushStudios.MazeMaster
 		private var optionsInstance:OptionsState;
 		private var actualStateInstance:Sprite;
 		private var cursor:Bitmap;
+		private var particles:Particles;
+		private var i:int;
+		private var particle:Particle;
 		
 		public function MazeMaster() 
 		{
 			instance = this;
 			addEventListener(Event.ENTER_FRAME, mainLoop);
-			menuInstance = new MenuState();
-			optionsInstance = new OptionsState();
-			addChild(menuInstance);
-			actualStateInstance = menuInstance;
-			cursor = Texture.getCursor();
-			addChild(cursor);
-			Mouse.hide();
-			stage.addEventListener(MouseEvent.MOUSE_MOVE, stage_mouseMove);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, stage_keyUp);
-			fscommand("fullscreen", "true");
+			//menuInstance = new MenuState();
+			//optionsInstance = new OptionsState();
+			//addChild(menuInstance);
+			//actualStateInstance = menuInstance;
+			//cursor = Texture.getCursor();
+			//addChild(cursor);
+			//Mouse.hide();
+			//stage.addEventListener(MouseEvent.MOUSE_MOVE, stage_mouseMove);
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, stage_keyDown);
+			//stage.addEventListener(KeyboardEvent.KEY_UP, stage_keyUp);
+			//fscommand("fullscreen", "true");
+			particles = new Particles();
+			addChild(particles);
 		}
 		
 		private function stage_keyUp(e:KeyboardEvent):void 
@@ -76,6 +83,18 @@ package com.kapelushStudios.MazeMaster
 		{
 			if (getState() == State.GAME) {
 				gameInstance.getMaze().run();
+			}
+			i++;
+			if (i == 1) {
+				for (var j:int = 0; j < 7; j++) 
+				{
+					particle = Particle.addParticle(Texture.getBlock(5, 5), 0, 0, 100, 0.97);
+					particle.randomDirection();
+					particle.randomSpeed(2, 10);
+					particle.x = 400;
+					particle.y = 300;
+					i = 0;
+				}
 			}
 		}
 		
