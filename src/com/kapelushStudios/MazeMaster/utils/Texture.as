@@ -3,6 +3,7 @@ package com.kapelushStudios.MazeMaster.utils
 	import com.kapelushStudios.MazeMaster.entities.EntityType;
 	import flash.display.*;
 	import flash.events.Event;
+	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest; //31, 31, 8
@@ -66,6 +67,15 @@ package com.kapelushStudios.MazeMaster.utils
 			var textures:Bitmap = new textury() as Bitmap;
 			var result:Bitmap = new Bitmap(new BitmapData(16, 16, false, 0));
 			result.bitmapData.copyPixels(textures.bitmapData, new Rectangle(x * 16, y * 16, 16, 16), new Point(0, 0));
+			return result;
+		}
+		
+		public static function getBlockParticle(x:int, y:int):Bitmap
+		{
+			var textures:Bitmap = new textury() as Bitmap;
+			var result:Bitmap = new Bitmap(new BitmapData(4, 4, false, 0));
+			result.bitmapData.copyPixels(textures.bitmapData, new Rectangle(x * 16, y * 16, 4, 4), new Point(0, 0));
+			result.filters = [new GlowFilter(0xEEEEEE, 1, 6, 6, 2, 1, true)];
 			return result;
 		}
 		

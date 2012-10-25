@@ -4,6 +4,7 @@ package com.kapelushStudios.MazeMaster.entities
 	import com.kapelushStudios.MazeMaster.item.Item;
 	import com.kapelushStudios.MazeMaster.map.Map;
 	import com.kapelushStudios.MazeMaster.map.Maze;
+	import com.kapelushStudios.MazeMaster.particles.Particle;
 	import com.kapelushStudios.MazeMaster.utils.Control;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
@@ -33,9 +34,12 @@ package com.kapelushStudios.MazeMaster.entities
 		private var pointDir0:Point = new Point();
 		private var pointDir1:Point = new Point();
 		private var sprint:Boolean;
+		private var particleTexture:Bitmap;
+		private var lastDir:Action;
 		
 		public function Player()
 		{
+			particleTexture = Texture.getBlockParticle(0, 0);
 			state1 = Texture.getPlayer(1);
 			state2 = Texture.getPlayer(2);
 			state3 = Texture.getPlayer(3);
@@ -46,6 +50,19 @@ package com.kapelushStudios.MazeMaster.entities
 			moveID = Maze.getThread().sheduleRepeatingTask(walkState, 7);
 			Maze.getThread().getTask(moveID).setPaused(true);
 			inventory = new Inventory();
+		}
+		
+		public function emitParticles(dir:Action = null):void 
+		{
+			if (dir == null) {
+				return ;
+			}
+			var particle:Particle = Particle.addParticle(null, 0, getSpeed(), 20, 0.9);
+			particle.randomDirectionAngle(dir);
+			particle.setSpinnig(true);
+			particle.setBitmapData(particleTexture.bitmapData);
+			particle.x = 400;
+			particle.y = 300;
 		}
 		
 		public function getInventory():Inventory
@@ -82,6 +99,8 @@ package com.kapelushStudios.MazeMaster.entities
 				setTexture(state3);
 				actualTex = 0;
 			}
+			if (sprint)
+				emitParticles(lastDir);
 		}
 		
 		override public function getMaxHealth():int
@@ -108,6 +127,7 @@ package com.kapelushStudios.MazeMaster.entities
 				} else {
 					y -= getSpeed();
 				}
+				lastDir = actionName;
 			}
 			if (actionName == Action.DOWN)
 			{
@@ -116,6 +136,7 @@ package com.kapelushStudios.MazeMaster.entities
 				} else {
 					y += getSpeed();
 				}
+				lastDir = actionName;
 			}
 			if (actionName == Action.LEFT)
 			{
@@ -124,6 +145,7 @@ package com.kapelushStudios.MazeMaster.entities
 				} else {
 					x -= getSpeed();
 				}
+				lastDir = actionName;
 			}
 			if (actionName == Action.RIGHT)
 			{
@@ -132,11 +154,13 @@ package com.kapelushStudios.MazeMaster.entities
 				} else {
 					x += getSpeed();
 				}
+				lastDir = actionName;
 			}
 			if (moveCallback != null)
 			{
 				moveCallback(this);
 			}
+			
 		}
 		
 		/**

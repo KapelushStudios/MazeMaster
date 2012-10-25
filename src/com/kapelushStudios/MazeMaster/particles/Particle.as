@@ -1,6 +1,8 @@
 package com.kapelushStudios.MazeMaster.particles
 {
+	import com.kapelushStudios.MazeMaster.entities.Action;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -21,26 +23,69 @@ package com.kapelushStudios.MazeMaster.particles
 		private static var particles:Vector.<Particle>;
 		private var friction:Number;
 		private static var allowConstructor:Boolean = false;
+		private var spin:int = 0;
 		
-		public function Particle(texture:DisplayObject, direction:int, speed:Number, lifeLength:int, friction:Number)
+		public function Particle(texture:DisplayObject = null, direction:int = -1, speed:Number = -1, lifeLength:int = -1, friction:Number = -1)
 		{
 			if (!allowConstructor)
 				throw new Error("Cannot create particle! Use Particle.addParticle()");
 			
-			this.friction = friction;
-			this.lifeLength = lifeLength;
-			this.speed = speed;
-			this.direction = direction;
-			this.texture = texture;
+			if (friction != -1)
+				this.friction = friction;
+			if (lifeLength != -1)
+				this.lifeLength = lifeLength;
+			if (speed != -1)
+				this.speed = speed;
+			if (direction != -1)
+				this.direction = direction;
+			if (texture != null){
+				this.texture = texture;
+				addChild(this.texture);
+			}
+			else {
+				texture = new Bitmap();
+			}
 			addEventListener(Event.ENTER_FRAME, enterFrame);
-			addChild(this.texture);
 			this.rotation = direction;
 			Particles.notifyState(this);
 		}
 		
-		public function randomDirection():void
+		public function randomAngle(min:int = 0, max:int = 360):void
 		{
-			direction = (int)(Math.random() * 360);
+			direction = (int)(Math.random() * (max - min)) + min;
+			this.rotation = direction;
+		}
+		
+		public function setBitmapData(bd:BitmapData):void
+		{
+			if (texture == null && !(texture is Bitmap))
+				texture = new Bitmap(bd);
+			else 
+				(Bitmap)(texture).bitmapData = bd;
+			addChild(texture);
+		}
+		
+		public function randomDirectionAngle(dir:Action):void
+		{
+			var max:int = 0;
+			var min:int = 360;
+			if (dir == Action.DOWN) {
+				max = 45;
+				min = -45;
+			}
+			if (dir == Action.LEFT) {
+				max = 135;
+				min = 45;
+			}
+			if (dir == Action.UP) {
+				max = 225;
+				min = 135;
+			}
+			if (dir == Action.RIGHT) {
+				max = 315;
+				min = 225;
+			}
+			direction = (int)(Math.random() * (max - min)) + min;
 			this.rotation = direction;
 		}
 		
@@ -67,6 +112,8 @@ package com.kapelushStudios.MazeMaster.particles
 			this.y += speedy * speed;
 			
 			this.alpha = 1 - (age / lifeLength);
+			
+			this.rotation += spin;
 		}
 		
 		public function setDead(value:Boolean):void
@@ -78,7 +125,6 @@ package com.kapelushStudios.MazeMaster.particles
 				{
 					availableParticles++;
 					removeEventListener(Event.ENTER_FRAME, enterFrame);
-					removeChild(texture);
 				}
 				else
 				{
@@ -138,7 +184,14 @@ package com.kapelushStudios.MazeMaster.particles
 				//trace(particles.length);
 			}
 		}
-	
+		
+		public function setSpinnig(value:Boolean):void 
+		{
+			if (value)
+				spin = Math.round(Math.random() * 4 - 1) - 2;
+			else 
+				spin = 0;
+		}
 	}
 
 }
