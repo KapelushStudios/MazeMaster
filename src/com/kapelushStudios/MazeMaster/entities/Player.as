@@ -5,9 +5,12 @@ package com.kapelushStudios.MazeMaster.entities
 	import com.kapelushStudios.MazeMaster.map.Map;
 	import com.kapelushStudios.MazeMaster.map.Maze;
 	import com.kapelushStudios.MazeMaster.particles.Particle;
+	import com.kapelushStudios.MazeMaster.shaders.ShaderFilters;
 	import com.kapelushStudios.MazeMaster.utils.Control;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
 	import flash.display.Bitmap;
+	import flash.filters.BlurFilter;
+	import flash.filters.ShaderFilter;
 	import flash.geom.*;
 	import flash.system.*;
 	
@@ -36,6 +39,7 @@ package com.kapelushStudios.MazeMaster.entities
 		private var sprint:Boolean;
 		private var particleTexture:Bitmap;
 		private var lastDir:Action;
+		private var blurred:Boolean = false;
 		
 		public function Player()
 		{
@@ -75,6 +79,8 @@ package com.kapelushStudios.MazeMaster.entities
 			Maze.getThread().getTask(moveID).setPaused(true);
 			setTexture(state3);
 			actualTex = 0;
+			world.setMotionBlur(false, 0)
+			blurred = false;
 		}
 		
 		public function walkState():void
@@ -99,8 +105,20 @@ package com.kapelushStudios.MazeMaster.entities
 				setTexture(state3);
 				actualTex = 0;
 			}
-			if (sprint)
+			if (sprint) {
 				emitParticles(lastDir);
+				if (!blurred) {
+					var dir:int = 0;
+					if (lastDir == Action.LEFT || lastDir == Action.RIGHT) {
+						dir = 0;
+					}
+					else {
+						dir = 90;
+					}
+					world.setMotionBlur(true, dir)
+					blurred = true;
+				}
+			}
 		}
 		
 		override public function getMaxHealth():int

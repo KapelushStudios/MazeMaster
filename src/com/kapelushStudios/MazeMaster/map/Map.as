@@ -3,6 +3,7 @@ package com.kapelushStudios.MazeMaster.map
 	import com.kapelushStudios.MazeMaster.blocks.Block;
 	import com.kapelushStudios.MazeMaster.blocks.BlockList;
 	import com.kapelushStudios.MazeMaster.entities.Entity;
+	import com.kapelushStudios.MazeMaster.shaders.ShaderFilters;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
@@ -178,6 +179,17 @@ package com.kapelushStudios.MazeMaster.map
 		{
 			return map;
 		}
+		
+		public function setMotionBlur(value:Boolean, dir:int):void
+		{
+			if (value) {
+				map1.filters = [ShaderFilters.getMotionBlur(1, dir)]
+			}
+			else {
+				map1.filters = [];
+			}
+		}
+		
 	}
 
 }

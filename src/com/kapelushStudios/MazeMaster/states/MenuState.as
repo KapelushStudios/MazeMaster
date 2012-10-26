@@ -1,6 +1,7 @@
 package com.kapelushStudios.MazeMaster.states 
 {
 	import com.kapelushStudios.MazeMaster.MazeMaster;
+	import com.kapelushStudios.MazeMaster.shaders.ShaderFilters;
 	import com.kapelushStudios.MazeMaster.utils.Animation;
 	import com.kapelushStudios.MazeMaster.utils.State;
 	import com.kapelushStudios.MazeMaster.utils.Texture;
